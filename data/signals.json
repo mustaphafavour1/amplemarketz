@@ -1,0 +1,22 @@
+[
+  { "id": "s1", "person": "Sarah Chen", "company": "Notion", "title": "VP of Sales", "signal": "Was promoted to VP of Sales at Notion", "type": "job", "source": "LinkedIn", "time": "2h ago", "avatar": "SC" },
+  { "id": "s2", "person": "Marcus Webb", "company": "Linear", "title": "Head of Revenue", "signal": "Posted about AI sales tools adoption trends", "type": "social", "source": "LinkedIn", "time": "3h ago", "avatar": "MW" },
+  { "id": "s3", "person": "Priya Kapoor", "company": "Stripe", "title": "Director of Partnerships", "signal": "Stripe raised Series H funding round", "type": "fund", "source": "Crunchbase", "time": "4h ago", "avatar": "PK" },
+  { "id": "s4", "person": "James Moore", "company": "Outreach.io", "title": "Enterprise AE", "signal": "Checked Amplemarket competitor pricing page", "type": "comp", "source": "G2", "time": "5h ago", "avatar": "JM" },
+  { "id": "s5", "person": "Elena Torres", "company": "Figma", "title": "Sales Operations Lead", "signal": "Figma featured in TechCrunch for enterprise expansion", "type": "news", "source": "TechCrunch", "time": "6h ago", "avatar": "ET" },
+  { "id": "s6", "person": "David Kim", "company": "Rippling", "title": "VP of Sales", "signal": "Moved from Workday to VP of Sales at Rippling", "type": "job", "source": "LinkedIn", "time": "7h ago", "avatar": "DK" },
+  { "id": "s7", "person": "Natalie Ross", "company": "Loom", "title": "Growth Lead", "signal": "Liked 3 posts about SDR automation tools", "type": "social", "source": "LinkedIn", "time": "8h ago", "avatar": "NR" },
+  { "id": "s8", "person": "Tom Hughes", "company": "Vercel", "title": "Enterprise Sales Director", "signal": "Vercel raised $250M Series E", "type": "fund", "source": "Crunchbase", "time": "9h ago", "avatar": "TH" },
+  { "id": "s9", "person": "Lena Park", "company": "Apollo.io", "title": "Sales Manager", "signal": "Reviewed Amplemarket on G2 — 4 stars", "type": "comp", "source": "G2", "time": "10h ago", "avatar": "LP" },
+  { "id": "s10", "person": "Carlos Vega", "company": "HubSpot", "title": "Channel Sales Lead", "signal": "HubSpot launches AI email writer feature", "type": "news", "source": "HubSpot Blog", "time": "11h ago", "avatar": "CV" },
+  { "id": "s11", "person": "Amara Osei", "company": "Airtable", "title": "Head of Sales Development", "signal": "Promoted to Head of Sales Development", "type": "job", "source": "LinkedIn", "time": "12h ago", "avatar": "AO" },
+  { "id": "s12", "person": "Felix Wagner", "company": "Contentful", "title": "Regional Sales Director", "signal": "Shared post about outbound prospecting frameworks", "type": "social", "source": "LinkedIn", "time": "13h ago", "avatar": "FW" },
+  { "id": "s13", "person": "Yuki Tanaka", "company": "Miro", "title": "VP Revenue Operations", "signal": "Miro closes $400M Series C at $17.5B valuation", "type": "fund", "source": "Bloomberg", "time": "14h ago", "avatar": "YT" },
+  { "id": "s14", "person": "Rachel Stone", "company": "Salesloft", "title": "Director of Enablement", "signal": "Visited amplemarket.com pricing page 3 times", "type": "comp", "source": "Website", "time": "15h ago", "avatar": "RS" },
+  { "id": "s15", "person": "Ben Alvarez", "company": "monday.com", "title": "Enterprise Account Executive", "signal": "monday.com expands sales team across EMEA", "type": "news", "source": "Business Wire", "time": "16h ago", "avatar": "BA" },
+  { "id": "s16", "person": "Ingrid Svensson", "company": "Klarna", "title": "Head of B2B Sales", "signal": "Moved from Adyen to Head of B2B Sales at Klarna", "type": "job", "source": "LinkedIn", "time": "17h ago", "avatar": "IS" },
+  { "id": "s17", "person": "Omar Hassan", "company": "Brex", "title": "Sales Development Manager", "signal": "Posted: 'AI has completely changed how I prospect'", "type": "social", "source": "LinkedIn", "time": "18h ago", "avatar": "OH" },
+  { "id": "s18", "person": "Sophie Lemaire", "company": "Doctolib", "title": "VP Sales Europe", "signal": "Doctolib raises €150M Series F", "type": "fund", "source": "Crunchbase", "time": "19h ago", "avatar": "SL" },
+  { "id": "s19", "person": "Grant Collins", "company": "Salesforce", "title": "Senior AE, Strategic Accounts", "signal": "Compared Amplemarket vs ZoomInfo on Reddit", "type": "comp", "source": "Reddit", "time": "20h ago", "avatar": "GC" },
+  { "id": "s20", "person": "Mei Lin", "company": "Databricks", "title": "Director of Sales", "signal": "Databricks named to Forbes Cloud 100 for third year", "type": "news", "source": "Forbes", "time": "21h ago", "avatar": "ML" }
+]

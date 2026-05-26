@@ -1,0 +1,23 @@
+{
+  "signalsToday": { "value": 47, "delta": 12, "label": "Signals today" },
+  "pendingActions": { "value": 37, "delta": -3, "label": "Pending actions" },
+  "activeSequences": { "value": 23, "delta": 5, "label": "Active sequences" },
+  "replyRate": { "value": "14.9%", "delta": 2.1, "label": "Reply rate (7d)" },
+  "meetingsToday": 4,
+  "pendingApprovals": 12,
+  "timeline": [
+    { "type": "job", "text": "Detected job change: Sarah Chen → VP at Notion", "time": "2h ago", "action": "Research" },
+    { "type": "fund", "text": "Funding signal: Stripe raised Series H", "time": "3h ago", "action": "View" },
+    { "type": "approved", "text": "Sequence approved for James Moore (Email)", "time": "4h ago", "action": null },
+    { "type": "social", "text": "Social signal: Marcus Webb posted about sales tools", "time": "5h ago", "action": "Research" },
+    { "type": "job", "text": "David Kim moved to VP of Sales at Rippling", "time": "7h ago", "action": "Research" },
+    { "type": "approved", "text": "3 sequences auto-approved on autopilot", "time": "8h ago", "action": null },
+    { "type": "comp", "text": "Rachel Stone visited amplemarket.com pricing 3x", "time": "9h ago", "action": "View" },
+    { "type": "fund", "text": "Vercel raised $250M Series E", "time": "9h ago", "action": "View" }
+  ],
+  "pendingApprovalCards": [
+    { "name": "James Moore", "company": "Outreach.io", "channel": "Email", "preview": "Hi James, saw your post about AI in sales — thought this might be relevant to what you're building..." },
+    { "name": "Elena Torres", "company": "Figma", "channel": "LinkedIn", "preview": "Hi Elena, congrats on the TechCrunch feature! I'd love to show you how Amplemarket can help..." },
+    { "name": "Marcus Webb", "company": "Linear", "channel": "Email", "preview": "Hi Marcus, your thoughts on AI prospecting really resonated. We're helping teams like yours..." }
+  ]
+}

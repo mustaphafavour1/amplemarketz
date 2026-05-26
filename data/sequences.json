@@ -1,0 +1,39 @@
+[
+  {
+    "id": "seq1",
+    "name": "SaaStr Event Follow-up",
+    "status": "Active",
+    "leads": 24,
+    "openRate": "32%",
+    "replyRate": "8.4%",
+    "steps": [
+      { "day": 0, "channel": "Email", "subject": "Saw you liked the event post", "body": "Hi {{firstName}},\n\nSaw your post about attending SaaStr Annual. I'd love to give you a quick demo of Amplemarket and show you how we can help your sales team.\n\nWould you be open to meeting up?\n\n{{senderName}}", "status": "approved" },
+      { "day": 3, "channel": "LinkedIn", "subject": "", "body": "Hi {{firstName}}, following up on my email — would love to connect and share how we're helping sales teams like yours scale outbound 3x without adding headcount.", "status": "draft" },
+      { "day": 7, "channel": "Email", "subject": "Quick question about your outbound strategy", "body": "Hi {{firstName}},\n\nI know you're busy, so I'll keep this short.\n\nAre you currently using any AI tools to research prospects before reaching out?\n\n{{senderName}}", "status": "draft" },
+      { "day": 12, "channel": "Call", "subject": "", "body": "Call script: Mention SaaStr, ask about current outbound motion, offer 15-min demo.", "status": "draft" }
+    ]
+  },
+  {
+    "id": "seq2",
+    "name": "VP Promotion Congratulations",
+    "status": "Active",
+    "leads": 18,
+    "openRate": "41%",
+    "replyRate": "12.1%",
+    "steps": [
+      { "day": 0, "channel": "Email", "subject": "Congrats on the VP role, {{firstName}}!", "body": "Hi {{firstName}},\n\nI noticed you recently moved into a VP of Sales role at {{company}} — congrats!\n\nNew VPs often tell us the biggest challenge is scaling pipeline quickly. We helped 3 similar companies generate 50+ qualified meetings in their first month.\n\nWorth a 15-min call?\n\n{{senderName}}", "status": "approved" },
+      { "day": 5, "channel": "Email", "subject": "Re: Congrats on the VP role", "body": "Hi {{firstName}},\n\nJust bumping this up in case it got buried.\n\n{{senderName}}", "status": "approved" }
+    ]
+  },
+  {
+    "id": "seq3",
+    "name": "Competitor Win-back",
+    "status": "Draft",
+    "leads": 0,
+    "openRate": "—",
+    "replyRate": "—",
+    "steps": [
+      { "day": 0, "channel": "Email", "subject": "Thinking of switching from {{competitor}}?", "body": "Hi {{firstName}},\n\nWe noticed you've been exploring alternatives. Teams that moved from {{competitor}} to Amplemarket saw a 40% increase in reply rates within 60 days.\n\nHappy to show you a direct comparison?\n\n{{senderName}}", "status": "draft" }
+    ]
+  }
+]

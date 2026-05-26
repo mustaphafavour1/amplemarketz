@@ -1,0 +1,36 @@
+{
+  "id": "sarah-chen",
+  "name": "Sarah Chen",
+  "title": "VP of Sales",
+  "company": "Notion",
+  "avatar": "SC",
+  "email": "sarah.chen@notion.so",
+  "linkedin": "linkedin.com/in/sarahchen",
+  "phone": "+1 (415) 000-0000",
+  "companyDetails": {
+    "industry": "SaaS",
+    "size": "501-1000 employees",
+    "location": "San Francisco, California, US",
+    "stack": ["Salesforce", "HubSpot", "Gong", "Outreach"]
+  },
+  "tags": ["SaaS", "VP-Level", "Series B+", "San Francisco"],
+  "signals": [
+    { "type": "job", "description": "Was promoted to VP of Sales at Notion", "date": "3 months ago" },
+    { "type": "social", "description": "Liked posts about AI sales automation 3x this week", "date": "2 days ago" },
+    { "type": "comp", "description": "Visited Amplemarket competitor pricing page twice in 60 days", "date": "5 days ago" }
+  ],
+  "researchSummary": "Sarah moved into a VP role 3 months ago and has been engaging with sales automation content consistently. Her team of 12 runs on Salesforce and HubSpot. She's checked competitor pricing pages twice in 60 days and attended SaaStr Annual last month. Her mandate this quarter is to scale outbound from 50 to 200 targeted accounts without proportionally growing headcount — which makes automation the obvious lever.",
+  "talkingPoints": [
+    { "title": "Her team is scaling fast", "body": "Sarah's team grew 40% last quarter. Amplemarket can help her scale output without scaling headcount." },
+    { "title": "She attended SaaStr Annual", "body": "Great opening hook — reference the event and tie it to AI-powered prospecting trends she likely saw there." },
+    { "title": "She was recently promoted", "body": "New VPs need quick wins. Show how Amplemarket can generate pipeline in the first 30 days." }
+  ],
+  "sequences": [
+    { "id": "seq1", "name": "SaaStr Follow-up Sequence", "status": "Active", "steps": 4, "opened": true }
+  ],
+  "activity": [
+    { "type": "email", "description": "Email sent: 'Saw you liked the event post'", "date": "1 day ago" },
+    { "type": "view", "description": "Visited your website (pricing page)", "date": "5 days ago" },
+    { "type": "signal", "description": "LinkedIn engagement detected", "date": "1 week ago" }
+  ]
+}
