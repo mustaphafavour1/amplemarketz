@@ -106,7 +106,10 @@ body {
 
 /* ─── Dashboard background ─── */
 .dashboard-bg {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFF 35%, #F5F7FF 65%, #F8FAFF 100%);
+  background:
+    radial-gradient(ellipse 70% 80% at -5% 105%, rgba(200, 210, 248, 0.38) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 80% at 105% -5%, rgba(195, 242, 220, 0.28) 0%, transparent 55%),
+    #FAFBFF;
 }
 
 /* ─── Ticker (logo bar) ─── */
