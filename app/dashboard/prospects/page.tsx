@@ -30,15 +30,15 @@ export default function ProspectsPage() {
             <p className="text-[12px] text-[#9A9A9A]">{leads.length} contacts</p>
           </div>
           <div className="flex gap-2">
-            <button className="h-8 px-3.5 rounded-lg border border-[#E4E2DC] text-[12px] text-[#5C5C5C] hover:border-[#111111] transition-colors cursor-pointer">Import</button>
+            <button className="h-8 px-3.5 rounded-lg border border-[#D4E4EE] text-[12px] text-[#5C5C5C] hover:border-[#111111] transition-colors cursor-pointer">Import</button>
             <button className="h-8 px-3.5 rounded-lg bg-[#0F1923] text-white text-[12px] font-medium cursor-pointer">+ Add prospect</button>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#E4E2DC] overflow-hidden">
+        <div className="bg-white rounded-xl border border-[#D4E4EE] overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#E4E2DC] bg-[#F7F6F3]">
+              <tr className="border-b border-[#D4E4EE] bg-[#F8FAFF]">
                 <th className="text-left px-4 py-2.5 text-[11px] font-semibold text-[#9A9A9A] uppercase tracking-wider">Name</th>
                 <th className="text-left px-4 py-2.5 text-[11px] font-semibold text-[#9A9A9A] uppercase tracking-wider">Company</th>
                 <th className="text-left px-4 py-2.5 text-[11px] font-semibold text-[#9A9A9A] uppercase tracking-wider">Signal</th>
@@ -53,7 +53,7 @@ export default function ProspectsPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: i * 0.03 }}
-                  className="border-b border-[#E4E2DC] hover:bg-[#FAFAF8] transition-colors group"
+                  className="border-b border-[#D4E4EE] hover:bg-[#F0F6FF] transition-colors group"
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2.5">
@@ -81,7 +81,7 @@ export default function ProspectsPage() {
                           <ExternalLink size={10} /> View
                         </button>
                       </Link>
-                      <button className="h-6 px-2.5 text-[11px] font-medium text-[#5C5C5C] border border-[#E4E2DC] rounded-md hover:border-[#111111] transition-colors cursor-pointer">+ Sequence</button>
+                      <button className="h-6 px-2.5 text-[11px] font-medium text-[#5C5C5C] border border-[#D4E4EE] rounded-md hover:border-[#111111] transition-colors cursor-pointer">+ Sequence</button>
                     </div>
                   </td>
                 </motion.tr>

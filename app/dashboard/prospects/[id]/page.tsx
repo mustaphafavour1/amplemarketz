@@ -27,7 +27,7 @@ export default function ProspectProfilePage() {
 
       <div className="flex flex-1 overflow-hidden min-h-0">
         {/* Left sticky column */}
-        <div className="w-[340px] shrink-0 border-r border-[#E4E2DC] overflow-y-auto bg-white">
+        <div className="w-[340px] shrink-0 border-r border-[#D4E4EE] overflow-y-auto bg-white">
           <div className="p-5">
             {/* Contact card */}
             <div className="flex items-start gap-3 mb-5">
@@ -40,7 +40,7 @@ export default function ProspectProfilePage() {
             </div>
 
             {/* Contact info */}
-            <div className="flex flex-col gap-2.5 mb-5 pb-5 border-b border-[#E4E2DC]">
+            <div className="flex flex-col gap-2.5 mb-5 pb-5 border-b border-[#D4E4EE]">
               <div className="flex items-center gap-2.5 text-[13px] text-[#5C5C5C]">
                 <Mail size={14} className="text-[#9A9A9A] shrink-0" />
                 <a href={`mailto:${prospect.email}`} className="hover:text-[#4361EE] transition-colors">{prospect.email}</a>
@@ -56,7 +56,7 @@ export default function ProspectProfilePage() {
             </div>
 
             {/* Signal history */}
-            <div className="mb-5 pb-5 border-b border-[#E4E2DC]">
+            <div className="mb-5 pb-5 border-b border-[#D4E4EE]">
               <p className="text-[11px] font-semibold text-[#9A9A9A] uppercase tracking-wider mb-3">Recent signals (3)</p>
               <div className="flex flex-col gap-2.5">
                 {prospect.signals.map((sig, i) => (
@@ -73,11 +73,11 @@ export default function ProspectProfilePage() {
             </div>
 
             {/* Tags */}
-            <div className="mb-5 pb-5 border-b border-[#E4E2DC]">
+            <div className="mb-5 pb-5 border-b border-[#D4E4EE]">
               <p className="text-[11px] font-semibold text-[#9A9A9A] uppercase tracking-wider mb-2.5">Tags</p>
               <div className="flex flex-wrap gap-1.5">
                 {prospect.tags.map(tag => (
-                  <span key={tag} className="flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-[#F0EEE9] text-[#5C5C5C]">
+                  <span key={tag} className="flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-[#EDF4FB] text-[#5C5C5C]">
                     <Tag size={9} />{tag}
                   </span>
                 ))}
@@ -92,7 +92,7 @@ export default function ProspectProfilePage() {
               <button className="w-full h-9 rounded-lg bg-[#4361EE] text-white text-[13px] font-medium flex items-center justify-center gap-2 cursor-pointer hover:bg-[#2a4bd4] transition-colors">
                 <Plus size={14} /> Add to sequence
               </button>
-              <button className="w-full h-9 rounded-lg border border-[#E4E2DC] text-[#5C5C5C] text-[13px] font-medium flex items-center justify-center gap-2 cursor-pointer hover:border-[#111111] transition-colors">
+              <button className="w-full h-9 rounded-lg border border-[#D4E4EE] text-[#5C5C5C] text-[13px] font-medium flex items-center justify-center gap-2 cursor-pointer hover:border-[#111111] transition-colors">
                 <FileText size={14} /> Log a note
               </button>
             </div>
@@ -102,7 +102,7 @@ export default function ProspectProfilePage() {
         {/* Right column: tabs */}
         <div className="flex-1 overflow-y-auto">
           {/* Tab bar */}
-          <div className="flex border-b border-[#E4E2DC] bg-white px-5 sticky top-0 z-10">
+          <div className="flex border-b border-[#D4E4EE] bg-white px-5 sticky top-0 z-10">
             {TABS.map(tab => (
               <button
                 key={tab}
@@ -120,7 +120,7 @@ export default function ProspectProfilePage() {
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-xl border border-[#E4E2DC] p-5 mb-5"
+                className="bg-white rounded-xl border border-[#D4E4EE] p-5 mb-5"
                 style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.05)" }}
               >
                 <div className="flex items-center justify-between mb-4">
@@ -146,12 +146,12 @@ export default function ProspectProfilePage() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1 + i * 0.08 }}
-                      className="bg-white rounded-xl border border-[#E4E2DC] p-4 flex flex-col gap-2"
+                      className="bg-white rounded-xl border border-[#D4E4EE] p-4 flex flex-col gap-2"
                       style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.04)" }}
                     >
                       <p className="text-[13px] font-semibold text-[#111111]">{tp.title}</p>
                       <p className="text-[12px] text-[#5C5C5C] leading-relaxed flex-1">{tp.body}</p>
-                      <button className="h-7 w-full rounded-md bg-[#F7F6F3] text-[11px] font-medium text-[#5C5C5C] hover:bg-[#E4E2DC] transition-colors cursor-pointer mt-1">
+                      <button className="h-7 w-full rounded-md bg-[#F8FAFF] text-[11px] font-medium text-[#5C5C5C] hover:bg-[#D4E4EE] transition-colors cursor-pointer mt-1">
                         Use this
                       </button>
                     </motion.div>

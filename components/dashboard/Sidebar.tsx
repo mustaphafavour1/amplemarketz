@@ -24,6 +24,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useDashboard } from "@/components/providers/DashboardProvider";
+import { useTheme } from "@/components/hooks/useTheme";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -228,6 +229,9 @@ function SectionLabel({ label }: { label: string }) {
 export function Sidebar() {
   const pathname = usePathname();
   const { sidebarExpanded, setSidebarExpanded } = useDashboard();
+  const { dark } = useTheme();
+  const [wordmarkError, setWordmarkError] = useState(false);
+  const [logomarkError, setLogomarkError] = useState(false);
 
   function isActive(item: NavItemDef) {
     if (!item.href) return false;
@@ -250,21 +254,22 @@ export function Sidebar() {
         {/* Header */}
         <div className="flex items-center justify-between px-3 py-3 shrink-0">
           <Link href="/" className="flex items-center gap-2 min-w-0">
-            <img
-              src="/images/amplemarket-logo.svg"
-              alt="Amplemarket"
-              height={22}
-              style={{ height: 22, display: "block" }}
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.display = "none";
-              }}
-            />
-            <span
-              className="text-[14px] font-semibold text-[var(--c-text-1)] truncate"
-              style={{ fontFamily: "'Instrument Serif', serif" }}
-            >
-              amplemarket
-            </span>
+            {!wordmarkError ? (
+              <img
+                src={dark ? "/images/wordmark-white.svg" : "/images/wordmark-black.svg"}
+                alt="Amplemarket"
+                height={22}
+                style={{ height: 22, display: "block" }}
+                onError={() => setWordmarkError(true)}
+              />
+            ) : (
+              <span
+                className="text-[14px] font-semibold text-[var(--c-text-1)] truncate"
+                style={{ fontFamily: "'Instrument Serif', serif" }}
+              >
+                amplemarket
+              </span>
+            )}
           </Link>
           <button
             onClick={() => setSidebarExpanded(false)}
@@ -362,17 +367,26 @@ export function Sidebar() {
       {/* Logo collapsed */}
       <div className="flex flex-col items-center py-3 gap-1 shrink-0 w-full">
         <Link href="/" className="flex items-center justify-center w-full mb-1">
-          <div
-            className="w-7 h-7 flex items-center justify-center rounded-lg"
-            style={{ background: "#0F1923" }}
-          >
-            <span
-              className="text-white font-bold text-sm leading-none"
-              style={{ fontFamily: "'Instrument Serif', serif" }}
+          {!logomarkError ? (
+            <img
+              src={dark ? "/images/logomark-white.svg" : "/images/logomark-black.svg"}
+              alt="Amplemarket"
+              style={{ height: 28, width: 28, display: "block" }}
+              onError={() => setLogomarkError(true)}
+            />
+          ) : (
+            <div
+              className="w-7 h-7 flex items-center justify-center rounded-lg"
+              style={{ background: "#0F1923" }}
             >
-              A
-            </span>
-          </div>
+              <span
+                className="text-white font-bold text-sm leading-none"
+                style={{ fontFamily: "'Instrument Serif', serif" }}
+              >
+                A
+              </span>
+            </div>
+          )}
         </Link>
 
         {/* Expand toggle */}

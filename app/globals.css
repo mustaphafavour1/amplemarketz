@@ -3,14 +3,14 @@
 
 /* ─── Color tokens ─── */
 :root {
-  --c-bg:          #F7F6F3;
+  --c-bg:          #F8FAFF;
   --c-surface:     #FFFFFF;
-  --c-subtle:      #F0EEE9;
+  --c-subtle:      #EDF4FB;
   --c-sidebar:     #FFFFFF;
   --c-topbar:      #FFFFFF;
-  --c-duo-bar:     #FAFAF8;
+  --c-duo-bar:     #F0F6FF;
   --c-border:      #EEF0F5;
-  --c-border-md:   #E4E2DC;
+  --c-border-md:   #D4E4EE;
   --c-text-1:      #111827;
   --c-text-2:      #4B5563;
   --c-text-3:      #9CA3AF;
@@ -87,13 +87,17 @@ body {
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+@keyframes gradientPulse {
+  0%, 100% { opacity: 0.15; }
+  50%       { opacity: 0.25; }
+}
 .hero-gradient {
   background: radial-gradient(ellipse 80% 60% at 0% 0%,
-    rgba(232,93,38,0.20) 0%, transparent 60%),
+    rgba(232,93,38,1) 0%, transparent 60%),
     radial-gradient(ellipse 60% 40% at 100% 100%,
-    rgba(67,97,238,0.07) 0%, transparent 60%);
+    rgba(67,97,238,0.5) 0%, transparent 60%);
   background-size: 200% 200%;
-  animation: gradientDrift 8s ease-in-out infinite;
+  animation: gradientDrift 8s ease-in-out infinite, gradientPulse 6s ease-in-out infinite;
 }
 
 /* ─── Rocket animation ─── */

@@ -50,6 +50,14 @@ const FOOTER_COLS = [
   { heading: "Legal", items: ["Privacy Policy", "Terms of Service", "GDPR", "Cookie Policy"] },
 ];
 
+/* ── Shared whileInView props ── */
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.5 },
+};
+
 /* ── Dashboard preview with 3D tilt & floating cards ── */
 function HeroDashboard() {
   const mouseX = useMotionValue(0);
@@ -58,9 +66,6 @@ function HeroDashboard() {
 
   const springX = useSpring(useTransform(mouseX, [-200, 200], [-8, 8]), { stiffness: 80, damping: 20 });
   const springY = useSpring(useTransform(mouseY, [-200, 200], [6, -6]), { stiffness: 80, damping: 20 });
-
-  const autoRotateX = hovering ? 0 : undefined;
-  const autoRotateY = hovering ? 0 : undefined;
 
   return (
     <div className="relative flex items-center justify-center" style={{ minHeight: 420 }}>
@@ -72,7 +77,7 @@ function HeroDashboard() {
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         className="absolute -top-6 -left-4 z-20 bg-white rounded-xl shadow-lg px-3 py-2.5 w-[220px]"
-        style={{ border: "1px solid #EEF0F5", boxShadow: "0 4px 16px rgba(0,0,0,0.10)" }}
+        style={{ border: "1px solid #D4E4EE", boxShadow: "0 4px 16px rgba(0,0,0,0.10)" }}
       >
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-[#4361EE] shrink-0" />
@@ -88,7 +93,7 @@ function HeroDashboard() {
         animate={{ y: [0, -4, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
         className="absolute -bottom-4 -right-6 z-20 bg-white rounded-xl shadow-lg px-4 py-3 w-[160px]"
-        style={{ border: "1px solid #EEF0F5", boxShadow: "0 4px 16px rgba(0,0,0,0.10)" }}
+        style={{ border: "1px solid #D4E4EE", boxShadow: "0 4px 16px rgba(0,0,0,0.10)" }}
       >
         <p className="text-[24px] font-bold text-[#15803D] leading-none">{FLOAT_CARDS.B.rate}</p>
         <p className="text-[11px] text-[#9CA3AF] mt-0.5">{FLOAT_CARDS.B.label}</p>
@@ -112,7 +117,7 @@ function HeroDashboard() {
           rotateY: [-3, 3, -3],
         } : { rotateX: springX.get(), rotateY: springY.get() }}
         transition={!hovering ? { duration: 6, repeat: Infinity, ease: "easeInOut" } : undefined}
-        style={{ rotateX: hovering ? springX : undefined, rotateY: hovering ? springY : undefined, transformPerspective: 1000, border: "1px solid #EEF0F5", boxShadow: "0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)" }}
+        style={{ rotateX: hovering ? springX : undefined, rotateY: hovering ? springY : undefined, transformPerspective: 1000, border: "1px solid #D4E4EE", boxShadow: "0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)" }}
         onMouseMove={e => {
           if (!hovering) return;
           const rect = e.currentTarget.getBoundingClientRect();
@@ -123,7 +128,7 @@ function HeroDashboard() {
         onMouseLeave={() => { setHovering(false); mouseX.set(0); mouseY.set(0); }}
         className="relative z-10 w-[420px] bg-white rounded-xl overflow-hidden"
       >
-        <div className="flex items-center justify-between px-4 py-3 border-b border-[#EEF0F5]">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[#D4E4EE]">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 bg-[#0F1923] rounded flex items-center justify-center">
               <span className="text-white text-[9px] font-bold" style={{ fontFamily: "'Instrument Serif', serif" }}>A</span>
@@ -134,14 +139,14 @@ function HeroDashboard() {
             <span className="w-2 h-2 rounded-full bg-[#15803D] animate-pulse" />37 pending
           </span>
         </div>
-        <div className="p-3 flex flex-col gap-2 bg-[#F7F6F3]">
+        <div className="p-3 flex flex-col gap-2 bg-[#F8FAFF]">
           {PREVIEW_LEADS.map((l, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + i * 0.1 }}
-              className="flex items-center justify-between bg-white rounded-lg px-3 py-2.5 border border-[#EEF0F5]"
+              className="flex items-center justify-between bg-white rounded-lg px-3 py-2.5 border border-[#D4E4EE]"
             >
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: `${l.color}18`, color: l.color }}>{l.initials}</div>
@@ -154,7 +159,7 @@ function HeroDashboard() {
             </motion.div>
           ))}
         </div>
-        <div className="px-4 py-3 border-t border-[#EEF0F5]">
+        <div className="px-4 py-3 border-t border-[#D4E4EE]">
           <div className="flex items-center justify-between mb-2">
             <div>
               <div className="text-[12px] font-semibold text-[#111827]">Sarah Chen</div>
@@ -162,12 +167,12 @@ function HeroDashboard() {
             </div>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-50 text-[#15803D] font-medium">New lead</span>
           </div>
-          <div className="text-[11px] text-[#4B5563] italic leading-relaxed bg-[#F7F6F3] rounded-lg px-3 py-2 mb-2.5">
+          <div className="text-[11px] text-[#4B5563] italic leading-relaxed bg-[#F8FAFF] rounded-lg px-3 py-2 mb-2.5">
             "Hi Sarah, saw your post about attending SaaStr..."
           </div>
           <div className="flex gap-2">
             <button className="flex-1 h-7 rounded-md text-white text-[11px] font-medium" style={{ background: "#1E40AF" }}>Approve &amp; Send</button>
-            <button className="h-7 px-3 rounded-md border border-[#EEF0F5] text-[11px] text-[#4B5563]">Edit</button>
+            <button className="h-7 px-3 rounded-md border border-[#D4E4EE] text-[11px] text-[#4B5563]">Edit</button>
           </div>
         </div>
       </motion.div>
@@ -178,21 +183,21 @@ function HeroDashboard() {
 /* ── Comparison table ── */
 function ComparisonTable({ compact = false }: { compact?: boolean }) {
   return (
-    <div className={`rounded-xl overflow-hidden border ${compact ? "text-[12px]" : ""}`} style={{ borderColor: "#EEF0F5" }}>
+    <div className={`rounded-xl overflow-hidden border ${compact ? "text-[12px]" : ""}`} style={{ borderColor: "#D4E4EE" }}>
       <div className="grid grid-cols-[1fr_120px_120px]">
         {/* Header */}
-        <div className="px-5 py-3 bg-[#F7F6F3] border-b border-[#EEF0F5]" />
-        <div className="px-5 py-3 bg-white border-b border-l border-[#EEF0F5] text-center font-semibold text-[13px] text-[#0F1923]" style={{ borderLeft: "3px solid #0F1923" }}>Amplemarket</div>
-        <div className="px-5 py-3 bg-[#F7F6F3] border-b border-l border-[#EEF0F5] text-center font-semibold text-[13px] text-[#9CA3AF]">Others</div>
+        <div className="px-5 py-3 bg-[#F8FAFF] border-b border-[#D4E4EE]" />
+        <div className="px-5 py-3 bg-white border-b border-l border-[#D4E4EE] text-center font-semibold text-[13px] text-[#0F1923]" style={{ borderLeft: "3px solid #0F1923" }}>Amplemarket</div>
+        <div className="px-5 py-3 bg-[#F8FAFF] border-b border-l border-[#D4E4EE] text-center font-semibold text-[13px] text-[#9CA3AF]">Others</div>
         {/* Rows */}
         {COMPARE_ROWS.map((row, i) => (
           <>
-            <div key={`l${i}`} className="px-5 py-3 border-b border-[#EEF0F5] text-[13px] text-[#4B5563] bg-[#F7F6F3]">{row.feat}</div>
-            <div key={`u${i}`} className="px-5 py-3 border-b border-l border-[#EEF0F5] text-center bg-white" style={{ borderLeft: "3px solid #0F1923" }}>
+            <div key={`l${i}`} className="px-5 py-3 border-b border-[#D4E4EE] text-[13px] text-[#4B5563] bg-[#F8FAFF]">{row.feat}</div>
+            <div key={`u${i}`} className="px-5 py-3 border-b border-l border-[#D4E4EE] text-center bg-white" style={{ borderLeft: "3px solid #0F1923" }}>
               {row.us === true ? <Check size={14} className="mx-auto text-[#15803D]" /> : <span className="text-[12px] font-medium text-[#0F1923]">{row.us}</span>}
             </div>
-            <div key={`t${i}`} className="px-5 py-3 border-b border-l border-[#EEF0F5] text-center bg-[#F7F6F3]">
-              {row.them === false ? <X size={14} className="mx-auto text-[#D1D5DB]" /> : <span className="text-[12px] text-[#9CA3AF]">{row.them}</span>}
+            <div key={`t${i}`} className="px-5 py-3 border-b border-l border-[#D4E4EE] text-center bg-[#F8FAFF]">
+              {row.them === false ? <X size={14} className="mx-auto text-[#C8D8E8]" /> : <span className="text-[12px] text-[#9CA3AF]">{row.them}</span>}
             </div>
           </>
         ))}
@@ -205,6 +210,8 @@ function ComparisonTable({ compact = false }: { compact?: boolean }) {
 export default function LandingPage() {
   const [nameIdx, setNameIdx] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [navLogoError, setNavLogoError] = useState(false);
+  const [footerLogoError, setFooterLogoError] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setNameIdx(i => (i + 1) % NAMES.length), 2000);
@@ -218,7 +225,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ background: "#F7F6F3" }}>
+    <div className="min-h-screen overflow-x-hidden" style={{ background: "#F8FAFF" }}>
 
       {/* Animated hero background */}
       <div className="fixed inset-0 pointer-events-none hero-gradient" />
@@ -234,13 +241,16 @@ export default function LandingPage() {
             background: scrolled ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.97)",
             backdropFilter: scrolled ? "blur(16px)" : "none",
             boxShadow: scrolled ? "0 4px 24px rgba(0,0,0,0.08)" : "0 1px 8px rgba(0,0,0,0.06)",
-            border: "1px solid #EEF0F5",
+            border: "1px solid #D4E4EE",
           }}
         >
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <img src="/images/amplemarket-logo.svg" alt="Amplemarket" height={22} style={{ height: 22 }}
-              onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-            <span className="font-bold text-[14px] text-[#0F1923]" style={{ fontFamily: "'Instrument Serif', serif" }}>amplemarket</span>
+            {!navLogoError ? (
+              <img src="/images/wordmark-black.svg" alt="Amplemarket" height={22} style={{ height: 22, display: "block" }}
+                onError={() => setNavLogoError(true)} />
+            ) : (
+              <span className="font-bold text-[14px] text-[#0F1923]" style={{ fontFamily: "'Instrument Serif', serif" }}>amplemarket</span>
+            )}
           </Link>
           <div className="hidden md:flex items-center gap-5">
             {NAV_LINKS.map(link => (
@@ -250,7 +260,7 @@ export default function LandingPage() {
             ))}
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <button className="h-8 px-3.5 rounded-full border border-[#E5E7EB] text-[12px] text-[#4B5563] hover:border-[#111827] transition-colors cursor-pointer">Open app</button>
+            <button className="h-8 px-3.5 rounded-full border border-[#D4E4EE] text-[12px] text-[#4B5563] hover:border-[#111827] transition-colors cursor-pointer">Open app</button>
             <Link href="/dashboard">
               <button className="h-8 px-3.5 rounded-full text-[12px] font-medium cursor-pointer text-white hover:opacity-90 transition-opacity" style={{ background: "#0F1923" }}>Get free trial</button>
             </Link>
@@ -267,10 +277,10 @@ export default function LandingPage() {
       <section className="max-w-[1180px] mx-auto px-6 pt-14 pb-20 grid grid-cols-1 lg:grid-cols-[55%_45%] gap-10 items-center" style={{ minHeight: "calc(100vh - 72px)" }}>
         <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.1 }}>
           <div className="flex flex-wrap items-center gap-2 mb-8">
-            <span className="inline-flex items-center gap-1.5 h-7 px-3 rounded-full border border-[#E5E7EB] bg-white text-[11px] text-[#4B5563] font-medium">
+            <span className="inline-flex items-center gap-1.5 h-7 px-3 rounded-full border border-[#D4E4EE] bg-white text-[11px] text-[#4B5563] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E85D26]" />YC-Backed
             </span>
-            <span className="inline-flex items-center gap-2 h-7 px-3 rounded-full border border-[#E5E7EB] bg-white text-[11px] text-[#4B5563] font-medium">
+            <span className="inline-flex items-center gap-2 h-7 px-3 rounded-full border border-[#D4E4EE] bg-white text-[11px] text-[#4B5563] font-medium">
               {[...Array(5)].map((_, i) => <Star key={i} size={10} fill={i < 4 ? "#F39C12" : "none"} stroke="#F39C12" />)}
               <strong className="text-[#111827]">Gartner</strong> Generative AI Cool Vendor
             </span>
@@ -310,7 +320,7 @@ export default function LandingPage() {
                 Get free trial <ArrowRight size={16} />
               </motion.button>
             </Link>
-            <button className="flex items-center gap-2.5 h-12 px-5 rounded-lg border border-[#E5E7EB] bg-white text-[#111827] font-medium text-[14px] hover:border-[#111827] transition-colors cursor-pointer"
+            <button className="flex items-center gap-2.5 h-12 px-5 rounded-lg border border-[#D4E4EE] bg-white text-[#111827] font-medium text-[14px] hover:border-[#111827] transition-colors cursor-pointer"
               style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.05)" }}>
               <div className="w-6 h-6 rounded-full bg-[#0F1923] flex items-center justify-center">
                 <Play size={8} fill="white" className="ml-0.5" />
@@ -329,14 +339,15 @@ export default function LandingPage() {
 
         <motion.div initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
           className="relative hidden lg:flex justify-center items-center">
-          <img src="/images/rocket.svg" alt="" aria-hidden className="rocket-img absolute -top-14 -right-2 w-[150px] z-30 pointer-events-none"
+          <img src="/images/rocket.svg" alt="" aria-hidden className="rocket-img absolute -top-14 -right-2 w-[180px] z-30 pointer-events-none"
             onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
           <HeroDashboard />
         </motion.div>
       </section>
 
       {/* ── SECTION 2: LOGO TICKER ── */}
-      <section className="py-6 border-y" style={{ borderColor: "#E5E7EB" }}>
+      <motion.section className="py-6 border-y" style={{ borderColor: "#D4E4EE" }}
+        {...fadeUp}>
         <p className="text-center text-[12px] mb-4 font-medium" style={{ color: "#9CA3AF" }}>
           Teams that switched from Apollo, Outreach and ZoomInfo
         </p>
@@ -347,10 +358,11 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── SECTION 3: MEET DUO ── */}
-      <section className="max-w-[1180px] mx-auto px-6 py-20">
+      <motion.section className="max-w-[1180px] mx-auto px-6 py-20"
+        {...fadeUp}>
         <div className="text-center mb-12">
           <h2 className="text-[42px] font-normal text-[#0F1923] mb-3" style={{ fontFamily: "'Instrument Serif', serif" }}>Meet Duo</h2>
           <p className="text-[17px] text-[#4B5563]">Signal. Research. Sequence. Three agents. One goal.</p>
@@ -361,7 +373,7 @@ export default function LandingPage() {
               key={i}
               whileHover={{ translateY: -4, boxShadow: "0 8px 32px rgba(0,0,0,0.08)" }}
               transition={{ duration: 0.15 }}
-              className="bg-white rounded-xl border border-[#EEF0F5] p-6"
+              className="bg-white rounded-xl border border-[#D4E4EE] p-6"
               style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
             >
               <div className="w-10 h-10 rounded-xl bg-[#EFF4FF] flex items-center justify-center mb-4">
@@ -372,10 +384,11 @@ export default function LandingPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* ── SECTION 4: FEATURE HIGHLIGHTS ── */}
-      <section className="py-10 border-t border-[#EEF0F5]">
+      <motion.section className="py-10 border-t border-[#D4E4EE]"
+        {...fadeUp}>
         {/* Row 1 — text left, visual right */}
         <div className="max-w-[1180px] mx-auto px-6 py-14 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
           <div>
@@ -383,11 +396,11 @@ export default function LandingPage() {
             <h3 className="text-[36px] font-normal text-[#0F1923] mb-4" style={{ fontFamily: "'Instrument Serif', serif" }}>Double your meetings<br />with AI outreach</h3>
             <p className="text-[16px] text-[#4B5563] leading-relaxed">Duo writes sequences that sound like your best rep having their best day — every day.</p>
           </div>
-          <div className="bg-white rounded-xl border border-[#EEF0F5] overflow-hidden" style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
+          <div className="bg-white rounded-xl border border-[#D4E4EE] overflow-hidden" style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
             {[{ t: "job", p: "Sarah Chen", s: "Promoted to VP of Sales at Notion" }, { t: "social", p: "Marcus Webb", s: "Posted about AI tools" }, { t: "fund", p: "Priya Kapoor", s: "Stripe raised Series H" }].map((row, i) => {
               const C: Record<string, string> = { job: "#4361EE", social: "#9B59B6", fund: "#27AE60" };
               return (
-                <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-[#EEF0F5] last:border-0" style={{ borderLeft: `3px solid ${C[row.t]}` }}>
+                <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-[#D4E4EE] last:border-0" style={{ borderLeft: `3px solid ${C[row.t]}` }}>
                   <span className="text-[16px]">{{ job: "💼", social: "💬", fund: "💰" }[row.t]}</span>
                   <div>
                     <div className="text-[13px] font-semibold text-[#111827]">{row.p}</div>
@@ -400,8 +413,8 @@ export default function LandingPage() {
         </div>
 
         {/* Row 2 — visual left, text right */}
-        <div className="max-w-[1180px] mx-auto px-6 py-14 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center border-t border-[#EEF0F5]">
-          <div className="bg-white rounded-xl border border-[#EEF0F5] p-5" style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
+        <div className="max-w-[1180px] mx-auto px-6 py-14 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center border-t border-[#D4E4EE]">
+          <div className="bg-white rounded-xl border border-[#D4E4EE] p-5" style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-full bg-[#EFF4FF] flex items-center justify-center text-[14px] font-bold text-[#1E40AF]">SC</div>
               <div>
@@ -419,13 +432,13 @@ export default function LandingPage() {
           </div>
           <div>
             <div className="text-[12px] font-semibold uppercase tracking-wider text-[#1E40AF] mb-3">Intelligence</div>
-            <h3 className="text-[36px] font-normal text-[#0F1923] mb-4" style={{ fontFamily: "'Instrument Serif', serif" }}>Know who's buying before<br />they raise their hand</h3>
+            <h3 className="text-[36px] font-normal text-[#0F1923] mb-4" style={{ fontFamily: "'Instrument Serif', serif" }}>Know who&apos;s buying before<br />they raise their hand</h3>
             <p className="text-[16px] text-[#4B5563] leading-relaxed">Contact-level signals from 20+ sources. Not company intent — the actual person moving.</p>
           </div>
         </div>
 
         {/* Row 3 — text left, comparison right */}
-        <div className="max-w-[1180px] mx-auto px-6 py-14 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center border-t border-[#EEF0F5]">
+        <div className="max-w-[1180px] mx-auto px-6 py-14 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center border-t border-[#D4E4EE]">
           <div>
             <div className="text-[12px] font-semibold uppercase tracking-wider text-[#E85D26] mb-3">Platform</div>
             <h3 className="text-[36px] font-normal text-[#0F1923] mb-4" style={{ fontFamily: "'Instrument Serif', serif" }}>One platform.<br />Zero stitching.</h3>
@@ -433,19 +446,21 @@ export default function LandingPage() {
           </div>
           <ComparisonTable compact />
         </div>
-      </section>
+      </motion.section>
 
       {/* ── SECTION 5: COMPARISON TABLE (full) ── */}
-      <section className="max-w-[860px] mx-auto px-6 py-16 border-t border-[#EEF0F5]">
+      <motion.section className="max-w-[860px] mx-auto px-6 py-16 border-t border-[#D4E4EE]"
+        {...fadeUp}>
         <div className="text-center mb-10">
           <h2 className="text-[36px] font-normal text-[#0F1923] mb-2" style={{ fontFamily: "'Instrument Serif', serif" }}>Everything, included.</h2>
-          <p className="text-[16px] text-[#4B5563]">Compare Amplemarket to the market's most popular tools.</p>
+          <p className="text-[16px] text-[#4B5563]">Compare Amplemarket to the market&apos;s most popular tools.</p>
         </div>
         <ComparisonTable />
-      </section>
+      </motion.section>
 
       {/* ── SECTION 6: TESTIMONIAL ── */}
-      <section className="py-20 border-t border-[#EEF0F5]">
+      <motion.section className="py-20 border-t border-[#D4E4EE]"
+        {...fadeUp}>
         <div className="max-w-[760px] mx-auto px-6 text-center">
           <p className="text-[32px] leading-relaxed text-[#0F1923] mb-6" style={{ fontFamily: "'Instrument Serif', serif" }}>
             &ldquo;Amplemarket is like having a super assistant that doesn&rsquo;t sleep.&rdquo;
@@ -458,33 +473,42 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── SECTION 7: CTA CLOSE ── */}
-      <section className="py-20" style={{ background: "#0F1923" }}>
+      <motion.section className="py-20" style={{ background: "#0F1923" }}
+        {...fadeUp}>
         <div className="max-w-[600px] mx-auto px-6 text-center">
           <h2 className="text-[40px] font-normal text-white mb-3" style={{ fontFamily: "'Instrument Serif', serif" }}>Your competitors are already using AI.</h2>
           <p className="text-[17px] text-white/70 mb-8">Get Duo working for your team this week.</p>
           <div className="flex flex-col items-center gap-3">
             <Link href="/dashboard">
-              <button className="h-12 px-8 rounded-lg bg-white text-[#0F1923] font-semibold text-[15px] cursor-pointer hover:bg-[#F7F6F3] transition-colors">
+              <button className="h-12 px-8 rounded-lg bg-white text-[#0F1923] font-semibold text-[15px] cursor-pointer hover:bg-[#F8FAFF] transition-colors">
                 Book a Demo
               </button>
             </Link>
             <p className="text-[12px] text-white/40">No credit card. No 6-month contract.</p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── FOOTER ── */}
       <footer style={{ background: "#0F1923", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-[1180px] mx-auto px-6 py-14 grid grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 bg-white/10 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm" style={{ fontFamily: "'Instrument Serif', serif" }}>A</span>
-              </div>
-              <span className="text-white font-bold text-[14px]" style={{ fontFamily: "'Instrument Serif', serif" }}>amplemarket</span>
+            <div className="mb-4">
+              {!footerLogoError ? (
+                <img src="/images/wordmark-white.svg" alt="Amplemarket" height={22}
+                  style={{ height: 22, display: "block" }}
+                  onError={() => setFooterLogoError(true)} />
+              ) : (
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 bg-white/10 rounded-lg flex items-center justify-center">
+                    <span className="text-white font-bold text-sm" style={{ fontFamily: "'Instrument Serif', serif" }}>A</span>
+                  </div>
+                  <span className="text-white font-bold text-[14px]" style={{ fontFamily: "'Instrument Serif', serif" }}>amplemarket</span>
+                </div>
+              )}
             </div>
             <p className="text-[13px] text-white/40 leading-relaxed">The AI platform for high-performing sales teams.</p>
           </div>
