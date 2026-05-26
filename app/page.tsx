@@ -499,52 +499,51 @@ function SwitcherSection() {
 ───────────────────────────────────────────────────────── */
 function TrinityVenn() {
   return (
-    <div className="relative max-w-[700px] mx-auto" style={{ height: 480 }}>
-      {/* SVG for the three overlapping circles */}
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 700 480" style={{ pointerEvents: "none" }}>
+    <div className="relative max-w-[700px] mx-auto" style={{ height: 580 }}>
+      {/* SVG — circles shifted up to avoid bottom clipping */}
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 700 580" style={{ pointerEvents: "none" }}>
         <defs>
           <radialGradient id="cg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#4361EE" stopOpacity="0.18"/><stop offset="100%" stopColor="#4361EE" stopOpacity="0.04"/></radialGradient>
           <radialGradient id="cg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#9B59B6" stopOpacity="0.18"/><stop offset="100%" stopColor="#9B59B6" stopOpacity="0.04"/></radialGradient>
           <radialGradient id="cg3" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#27AE60" stopOpacity="0.18"/><stop offset="100%" stopColor="#27AE60" stopOpacity="0.04"/></radialGradient>
         </defs>
-        {/* Top circle — Signal */}
-        <circle cx="350" cy="190" r="160" fill="url(#cg1)" stroke="#4361EE" strokeWidth="1.2" strokeOpacity="0.35"/>
-        {/* Bottom-left — Research */}
-        <circle cx="240" cy="330" r="160" fill="url(#cg2)" stroke="#9B59B6" strokeWidth="1.2" strokeOpacity="0.35"/>
-        {/* Bottom-right — Sequence */}
-        <circle cx="460" cy="330" r="160" fill="url(#cg3)" stroke="#27AE60" strokeWidth="1.2" strokeOpacity="0.35"/>
+        {/* Signal — top center */}
+        <circle cx="350" cy="200" r="165" fill="url(#cg1)" stroke="#4361EE" strokeWidth="1.2" strokeOpacity="0.35"/>
+        {/* Research — bottom-left */}
+        <circle cx="235" cy="360" r="165" fill="url(#cg2)" stroke="#9B59B6" strokeWidth="1.2" strokeOpacity="0.35"/>
+        {/* Sequence — bottom-right */}
+        <circle cx="465" cy="360" r="165" fill="url(#cg3)" stroke="#27AE60" strokeWidth="1.2" strokeOpacity="0.35"/>
       </svg>
 
-      {/* Labels for each circle */}
-      {/* Signal — top */}
-      <div className="absolute text-center" style={{ left: "50%", top: "3%", transform: "translateX(-50%)", width: 160 }}>
-        <div className="text-[14px] font-bold mb-1" style={{ color: "#4361EE" }}>Signal</div>
-        <div className="text-[11px] leading-relaxed" style={{ color: "#4B5563" }}>Duo monitors 20+ sources and finds the exact person ready to buy.</div>
+      {/* Signal label — inside top circle */}
+      <div className="absolute text-center" style={{ left: "50%", top: "4%", transform: "translateX(-50%)", width: 150 }}>
+        <div className="text-[14px] font-bold mb-1.5" style={{ color: "#4361EE" }}>Signal</div>
+        <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo monitors 20+ sources and finds the exact person ready to buy.</div>
       </div>
 
-      {/* Research — bottom-left */}
-      <div className="absolute text-center" style={{ left: "2%", bottom: "6%", width: 160 }}>
-        <div className="text-[14px] font-bold mb-1" style={{ color: "#9B59B6" }}>Research</div>
-        <div className="text-[11px] leading-relaxed" style={{ color: "#4B5563" }}>Duo builds deep prospect profiles your reps need before they hit send.</div>
+      {/* Research label — inside bottom-left circle */}
+      <div className="absolute text-center" style={{ left: "3%", top: "60%", width: 148 }}>
+        <div className="text-[14px] font-bold mb-1.5" style={{ color: "#9B59B6" }}>Research</div>
+        <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo builds deep prospect profiles your reps need before they hit send.</div>
       </div>
 
-      {/* Sequence — bottom-right */}
-      <div className="absolute text-center" style={{ right: "2%", bottom: "6%", width: 160 }}>
-        <div className="text-[14px] font-bold mb-1" style={{ color: "#27AE60" }}>Sequence</div>
-        <div className="text-[11px] leading-relaxed" style={{ color: "#4B5563" }}>Duo writes personalised multichannel outreach in your rep&apos;s voice.</div>
+      {/* Sequence label — inside bottom-right circle */}
+      <div className="absolute text-center" style={{ right: "3%", top: "60%", width: 148 }}>
+        <div className="text-[14px] font-bold mb-1.5" style={{ color: "#27AE60" }}>Sequence</div>
+        <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo writes personalised multichannel outreach in your rep&apos;s voice.</div>
       </div>
 
-      {/* Center "Sales" label */}
-      <div className="absolute flex items-center justify-center" style={{ left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}>
+      {/* Center "Sales" label at the triple-overlap */}
+      <div className="absolute flex items-center justify-center" style={{ left: "50%", top: "52%", transform: "translate(-50%,-50%)" }}>
         <motion.div
           animate={{ scale: [1, 1.06, 1] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           className="text-center"
           style={{
-            background: "rgba(255,255,255,0.92)",
+            background: "rgba(255,255,255,0.94)",
             backdropFilter: "blur(12px)",
             borderRadius: 16,
-            padding: "12px 20px",
+            padding: "10px 18px",
             boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
             border: "1px solid rgba(255,255,255,0.8)",
           }}
@@ -664,24 +663,35 @@ function TestimonialSection() {
   const [tickerSet, setTickerSet] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setIdx(i => (i + 1) % TESTIMONIALS.length), 5000);
+    const t = setInterval(() => setIdx(i => (i + 1) % TESTIMONIALS.length), 7000);
     return () => clearInterval(t);
   }, []);
 
   useEffect(() => {
-    const t = setInterval(() => setTickerSet(s => (s + 1) % TICKER_SETS.length), 4000);
+    const t = setInterval(() => setTickerSet(s => (s + 1) % TICKER_SETS.length), 6000);
     return () => clearInterval(t);
   }, []);
 
   return (
-    <div className="relative overflow-hidden py-20" style={{ background: "#F8FAFF" }}>
-      {/* BG text — big, static, 3% opacity, subtly changing */}
-      <div className="absolute inset-0 pointer-events-none flex flex-col justify-center gap-4 overflow-hidden px-8" style={{ opacity: 0.03 }}>
+    <div className="relative overflow-hidden py-24" style={{ background: "#F8FAFF" }}>
+      {/* BG text — large, tight line-height, 3% opacity, full-width, slow fade between sets */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ opacity: 0.032 }}>
         <AnimatePresence mode="wait">
-          <motion.div key={tickerSet} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 2 }}
-            className="flex flex-col gap-4">
+          <motion.div
+            key={tickerSet}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 3 }}
+            className="flex flex-col"
+            style={{ lineHeight: 0.88 }}
+          >
             {TICKER_SETS[tickerSet].map((phrase, i) => (
-              <div key={i} className="text-[96px] font-black text-[#0F1923] whitespace-nowrap leading-none" style={{ fontFamily: "var(--font-bricolage)" }}>
+              <div
+                key={i}
+                className="font-black text-[#0F1923] whitespace-nowrap w-full"
+                style={{ fontFamily: "var(--font-bricolage)", fontSize: "clamp(80px, 10vw, 128px)", lineHeight: 0.9 }}
+              >
                 {phrase}
               </div>
             ))}
@@ -693,22 +703,28 @@ function TestimonialSection() {
         <AnimatePresence mode="wait">
           <motion.div
             key={idx}
-            initial={{ x: 60, opacity: 0 }}
+            initial={{ x: 80, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -60, opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.34, 1.2, 0.64, 1] }}
+            exit={{ x: -80, opacity: 0 }}
+            transition={{ duration: 0.6, ease: [0.34, 1.1, 0.64, 1] }}
             className="flex items-start gap-10"
           >
-            {/* Avatar clipped in quote shape */}
+            {/* Avatar clipped in quote/apostrophe shape */}
             <div className="shrink-0">
+              <svg width="0" height="0" style={{ position: "absolute" }}>
+                <defs>
+                  <clipPath id="quoteClip" clipPathUnits="objectBoundingBox">
+                    <path d="M0.5,0 C0.78,0 1,0.15 1,0.38 L1,0.72 C1,0.9 0.82,1 0.62,1 L0.42,1 C0.22,1 0.1,0.9 0.1,0.78 L0.1,0.65 C0.1,0.55 0.18,0.48 0.28,0.48 L0.5,0.48 C0.62,0.48 0.72,0.4 0.72,0.3 L0.72,0.12 C0.72,0.05 0.62,0 0.5,0 Z" />
+                  </clipPath>
+                </defs>
+              </svg>
               <div style={{
-                width: 110, height: 130,
-                clipPath: "polygon(20% 0%, 80% 0%, 100% 15%, 100% 85%, 80% 100%, 20% 100%, 0% 85%, 0% 15%)",
+                width: 120, height: 140,
+                clipPath: "url(#quoteClip)",
                 overflow: "hidden",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
               }}>
                 <img
-                  src={`https://i.pravatar.cc/120?img=${idx + 10}`}
+                  src={`https://i.pravatar.cc/140?img=${idx + 10}`}
                   alt={TESTIMONIALS[idx].name}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
@@ -717,7 +733,7 @@ function TestimonialSection() {
 
             {/* Testimony */}
             <div className="flex-1">
-              <p className="text-[28px] leading-[1.45] text-[#0F1923] mb-6"
+              <p className="text-[27px] leading-[1.42] text-[#0F1923] mb-6"
                 style={{ fontFamily: "'Instrument Serif', serif" }}>
                 &ldquo;{TESTIMONIALS[idx].quote}&rdquo;
               </p>
@@ -803,7 +819,6 @@ export default function LandingPage() {
               ))}
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <button className="h-8 px-3.5 rounded-full border border-[#D4E4EE] text-[12px] text-[#4B5563] hover:border-[#111827] transition-colors cursor-pointer">Open app</button>
               <Link href="/dashboard">
                 <button className="h-8 px-3.5 rounded-full text-[12px] font-medium cursor-pointer text-white hover:opacity-90 transition-opacity" style={{ background: "#0F1923" }}>Get free trial</button>
               </Link>
@@ -838,7 +853,7 @@ export default function LandingPage() {
           <div className="max-w-[1180px] mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-[#0F1923] mb-3" style={D_H2}>
-                The Trinity of Sale<span style={TILT_SPAN}>s</span>
+                Enjoy the Trinity of Sale<span style={TILT_SPAN}>s</span>
               </h2>
               <p className="text-[17px] text-[#4B5563]">Signal. Research. Sequence. Three agents working in concert.</p>
             </div>
