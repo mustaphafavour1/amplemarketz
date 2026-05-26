@@ -169,3 +169,43 @@ body {
 .rocket-img {
   animation: rocketFloat 4s ease-in-out infinite, rocketHue 12s ease-in-out infinite alternate;
 }
+
+/* ─── Animated blob background ─── */
+@keyframes blob1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -60px) scale(1.08); }
+  66%       { transform: translate(-30px, 30px) scale(0.95); }
+}
+@keyframes blob2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-50px, 40px) scale(1.05); }
+  66%       { transform: translate(35px, -35px) scale(0.92); }
+}
+@keyframes blob3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(20px, 50px) scale(1.1); }
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.28;
+}
+.blob-1 { width: 600px; height: 600px; background: radial-gradient(circle, #A8D5E8 0%, #B8E8D0 100%); top: -100px; left: -150px; animation: blob1 22s ease-in-out infinite; }
+.blob-2 { width: 500px; height: 500px; background: radial-gradient(circle, #C3EAD8 0%, #A5C8F0 100%); top: 40%; right: -120px; animation: blob2 28s ease-in-out infinite; }
+.blob-3 { width: 400px; height: 400px; background: radial-gradient(circle, #B0D8F0 0%, #C8EAD8 100%); bottom: 5%; left: 30%; animation: blob3 18s ease-in-out infinite; }
+
+/* ─── Dark noise background ─── */
+.noise-bg {
+  position: relative;
+  background: linear-gradient(160deg, #080E1A 0%, #0F1923 40%, #0A1535 100%);
+}
+.noise-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+}
