@@ -516,21 +516,54 @@ function TrinityVenn() {
       </svg>
 
       {/* Signal label — inside top circle */}
-      <div className="absolute text-center" style={{ left: "50%", top: "4%", transform: "translateX(-50%)", width: 150 }}>
-        <div className="text-[14px] font-bold mb-1.5" style={{ color: "#4361EE" }}>Signal</div>
-        <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo monitors 20+ sources and finds the exact person ready to buy.</div>
+      <div className="absolute text-center" style={{ left: "50%", top: "4%", transform: "translateX(-50%)", width: 160 }}>
+        <div style={{
+          background: "rgba(255,255,255,0.88)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          borderRadius: 14,
+          padding: "10px 14px",
+          boxShadow: "0 8px 28px rgba(67,97,238,0.13), 0 2px 8px rgba(0,0,0,0.05)",
+          border: "1px solid rgba(255,255,255,0.92)",
+          transform: "perspective(500px) rotateX(3deg)",
+        }}>
+          <div className="text-[14px] font-bold mb-1.5" style={{ color: "#4361EE" }}>Signal</div>
+          <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo monitors 20+ sources and finds the exact person ready to buy.</div>
+        </div>
       </div>
 
       {/* Research label — inside bottom-left circle */}
-      <div className="absolute text-center" style={{ left: "3%", top: "60%", width: 148 }}>
-        <div className="text-[14px] font-bold mb-1.5" style={{ color: "#9B59B6" }}>Research</div>
-        <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo builds deep prospect profiles your reps need before they hit send.</div>
+      <div className="absolute text-center" style={{ left: "1%", top: "60%", width: 160 }}>
+        <div style={{
+          background: "rgba(255,255,255,0.88)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          borderRadius: 14,
+          padding: "10px 14px",
+          boxShadow: "0 8px 28px rgba(155,89,182,0.13), 0 2px 8px rgba(0,0,0,0.05)",
+          border: "1px solid rgba(255,255,255,0.92)",
+          transform: "perspective(500px) rotateX(3deg) rotateY(4deg)",
+        }}>
+          <div className="text-[14px] font-bold mb-1.5" style={{ color: "#9B59B6" }}>Research</div>
+          <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo builds deep prospect profiles your reps need before they hit send.</div>
+        </div>
       </div>
 
       {/* Sequence label — inside bottom-right circle */}
-      <div className="absolute text-center" style={{ right: "3%", top: "60%", width: 148 }}>
-        <div className="text-[14px] font-bold mb-1.5" style={{ color: "#27AE60" }}>Sequence</div>
-        <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo writes personalised multichannel outreach in your rep&apos;s voice.</div>
+      <div className="absolute text-center" style={{ right: "1%", top: "60%", width: 160 }}>
+        <div style={{
+          background: "rgba(255,255,255,0.88)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          borderRadius: 14,
+          padding: "10px 14px",
+          boxShadow: "0 8px 28px rgba(39,174,96,0.13), 0 2px 8px rgba(0,0,0,0.05)",
+          border: "1px solid rgba(255,255,255,0.92)",
+          transform: "perspective(500px) rotateX(3deg) rotateY(-4deg)",
+        }}>
+          <div className="text-[14px] font-bold mb-1.5" style={{ color: "#27AE60" }}>Sequence</div>
+          <div className="text-[11px] leading-snug" style={{ color: "#4B5563" }}>Duo writes personalised multichannel outreach in your rep&apos;s voice.</div>
+        </div>
       </div>
 
       {/* Center "Sales" label at the triple-overlap */}
@@ -714,7 +747,8 @@ function TestimonialSection() {
               <svg width="0" height="0" style={{ position: "absolute" }}>
                 <defs>
                   <clipPath id="quoteClip" clipPathUnits="objectBoundingBox">
-                    <path d="M0.5,0 C0.78,0 1,0.15 1,0.38 L1,0.72 C1,0.9 0.82,1 0.62,1 L0.42,1 C0.22,1 0.1,0.9 0.1,0.78 L0.1,0.65 C0.1,0.55 0.18,0.48 0.28,0.48 L0.5,0.48 C0.62,0.48 0.72,0.4 0.72,0.3 L0.72,0.12 C0.72,0.05 0.62,0 0.5,0 Z" />
+                    {/* Speech-bubble: wide rounded rectangle at top (face area), small downward tail at bottom-left */}
+                    <path d="M0.12,0 C0.05,0 0,0.06 0,0.14 L0,0.68 C0,0.78 0.06,0.84 0.14,0.84 L0.26,0.84 L0.18,1 L0.38,0.84 L0.86,0.84 C0.94,0.84 1,0.78 1,0.68 L1,0.14 C1,0.06 0.95,0 0.88,0 Z" />
                   </clipPath>
                 </defs>
               </svg>
