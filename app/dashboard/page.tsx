@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { DuoBar } from "@/components/ui/DuoBar";
 import stats from "@/data/stats.json";
 import {
   TrendingUp, TrendingDown, Mail, Link2,
-  Sparkles, Send, MessageCircle, Pencil,
+  Sparkles, Send, Pencil,
 } from "lucide-react";
 
 const HOME_CHIPS = [
@@ -16,7 +16,6 @@ const HOME_CHIPS = [
   { icon: "⚡", label: "Start with highest intent signal" },
 ];
 
-/* 5 stat cards */
 const STAT_CARDS = [
   { value: 47, label: "Signals today", delta: 12, positive: true, deltaLabel: "vs yesterday" },
   { value: 37, label: "Pending actions", delta: -3, positive: false, deltaLabel: "vs yesterday" },
@@ -25,7 +24,6 @@ const STAT_CARDS = [
   { value: 142, label: "Emails sent today", delta: 8, positive: true, deltaLabel: "vs yesterday" },
 ];
 
-/* Light/desaturated dot colours */
 const DOT_COLOR: Record<string, string> = {
   job: "rgba(67,97,238,0.32)",
   social: "rgba(155,89,182,0.32)",
@@ -35,15 +33,12 @@ const DOT_COLOR: Record<string, string> = {
   approved: "rgba(39,174,96,0.32)",
 };
 
-/* Shared card container style */
 const CARD: React.CSSProperties = {
   background: "rgba(255,255,255,0.85)",
-  borderRadius: 2,
+  borderRadius: 10,
   border: "0.3px solid rgba(172,200,215,0.55)",
-  boxShadow: "0 1px 4px rgba(0,0,0,0.03)",
 };
 
-/* Initial Duo conversation */
 const INIT_MESSAGES: Array<{ from: "duo" | "user"; text: string }> = [
   { from: "duo", text: "Good morning! I've processed 47 signals while you were away. Sarah Chen at Notion was just promoted to VP of Sales." },
   { from: "duo", text: "I've drafted personalised outreach for your top 12 leads. 3 sequences need your approval before I can send." },
@@ -58,24 +53,25 @@ const QUICK_ACTIONS = [
   "Highest intent signal",
 ];
 
+const SUGGESTIONS = [
+  "Who has the highest intent today?",
+  "Show me pending approvals",
+  "Summarise this week's performance",
+];
+
 /* ── Stat card ── */
 function StatCard({ value, label, delta, positive, deltaLabel }: {
   value: number | string; label: string; delta: number; positive: boolean; deltaLabel: string;
 }) {
   return (
-    <motion.div
-      whileHover={{ translateY: -2, boxShadow: "0 4px 12px rgba(67,97,238,0.07)" }}
-      transition={{ duration: 0.15 }}
-      className="shrink-0 p-4"
-      style={{ ...CARD, minWidth: 180, scrollSnapAlign: "start" }}
-    >
-      <div className="text-[24px] font-bold text-[#1F2937] leading-none mb-1">{value}</div>
-      <div className="text-[10px] text-[#9CA3AF] mb-1.5">{label}</div>
-      <div className={`flex items-center gap-1 text-[10px] font-medium ${positive ? "text-[#15803D]" : "text-[#E85D26]"}`}>
-        {positive ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
+    <div className="shrink-0 p-4" style={{ ...CARD, minWidth: 160, scrollSnapAlign: "start" }}>
+      <div className="text-[22px] font-bold text-[#1F2937] leading-none mb-1">{value}</div>
+      <div className="text-[9px] text-[#9CA3AF] mb-1.5">{label}</div>
+      <div className={`flex items-center gap-1 text-[9px] font-medium ${positive ? "text-[#15803D]" : "text-[#E85D26]"}`}>
+        {positive ? <TrendingUp size={8} /> : <TrendingDown size={8} />}
         {positive ? "+" : ""}{delta}{typeof value === "string" ? "%" : ""} {deltaLabel}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -83,16 +79,26 @@ function StatCard({ value, label, delta, positive, deltaLabel }: {
 function DuoChatSection() {
   const [messages, setMessages] = useState(INIT_MESSAGES);
   const [input, setInput] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const send = () => {
     if (!input.trim()) return;
     setMessages(m => [...m, { from: "user" as const, text: input.trim() }]);
     setInput("");
-    /* Simulate a Duo reply */
+    setShowSuggestions(false);
     setTimeout(() => {
       setMessages(m => [...m, { from: "duo" as const, text: "Got it. Let me pull that up for you..." }]);
     }, 600);
   };
+
+  /* Auto-resize textarea */
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + "px";
+    }
+  }, [input]);
 
   return (
     <div className="flex flex-col overflow-hidden h-full" style={CARD}>
@@ -119,7 +125,7 @@ function DuoChatSection() {
             <div
               className="max-w-[82%] px-3 py-2 leading-relaxed"
               style={{
-                borderRadius: 2,
+                borderRadius: 8,
                 fontSize: 11,
                 background: msg.from === "duo" ? "rgba(248,250,255,0.92)" : "#1E40AF",
                 color: msg.from === "duo" ? "#374151" : "white",
@@ -137,39 +143,66 @@ function DuoChatSection() {
         {QUICK_ACTIONS.map(q => (
           <button
             key={q}
-            onClick={() => { setInput(q); }}
+            onClick={() => { setInput(q); setShowSuggestions(false); }}
             className="px-2 py-1 cursor-pointer hover:bg-[#EFF4FF] transition-colors"
-            style={{ borderRadius: 2, border: "0.3px solid rgba(147,197,253,0.5)", color: "#1E40AF", fontSize: 10 }}
+            style={{ borderRadius: 6, border: "0.3px solid rgba(147,197,253,0.5)", color: "#1E40AF", fontSize: 10 }}
           >
             {q}
           </button>
         ))}
       </div>
 
-      {/* Input */}
-      <div className="px-4 py-3 flex items-center gap-2" style={{ borderTop: "0.3px solid rgba(172,200,215,0.55)" }}>
-        <input
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={e => e.key === "Enter" && send()}
-          placeholder="Ask Duo anything..."
-          className="flex-1 outline-none"
-          style={{
-            fontSize: 11,
-            background: "rgba(248,250,255,0.9)",
-            borderRadius: 2,
-            padding: "6px 10px",
-            border: "0.3px solid rgba(147,197,253,0.5)",
-            color: "#374151",
-          }}
-        />
-        <button
-          onClick={send}
-          className="flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
-          style={{ width: 28, height: 28, background: "#1E40AF", borderRadius: 2, flexShrink: 0 }}
-        >
-          <Send size={12} className="text-white" />
-        </button>
+      {/* Input area with animated glow ring */}
+      <div className="px-4 py-3" style={{ borderTop: "0.3px solid rgba(172,200,215,0.55)" }}>
+        {/* Suggestions */}
+        {showSuggestions && (
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {SUGGESTIONS.map(s => (
+              <button
+                key={s}
+                onClick={() => { setInput(s); setShowSuggestions(false); }}
+                className="text-[9px] text-[#6B7280] px-2 py-1 transition-colors cursor-pointer hover:bg-[#EFF4FF] hover:text-[#1E40AF]"
+                style={{ borderRadius: 6, border: "0.3px solid rgba(172,200,215,0.5)", background: "rgba(248,250,255,0.8)" }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="flex items-end gap-2">
+          {/* Glowing wrapper */}
+          <div className="flex-1 relative" style={{ borderRadius: 9 }}>
+            <div className="chat-glow-ring" />
+            <div className="chat-glow-inner">
+              <textarea
+                ref={textareaRef}
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
+                onFocus={() => setShowSuggestions(false)}
+                placeholder="Ask Duo anything... (Shift+Enter for new line)"
+                rows={2}
+                className="w-full outline-none resize-none"
+                style={{
+                  fontSize: 11,
+                  background: "rgba(248,250,255,0.9)",
+                  padding: "8px 10px",
+                  color: "#374151",
+                  minHeight: 52,
+                  maxHeight: 120,
+                  display: "block",
+                }}
+              />
+            </div>
+          </div>
+          <button
+            onClick={send}
+            className="flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity mb-0.5"
+            style={{ width: 32, height: 32, background: "#1E40AF", borderRadius: 8, flexShrink: 0 }}
+          >
+            <Send size={13} className="text-white" />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -187,146 +220,130 @@ export default function DashboardHome() {
       <Topbar title="Good morning, Favour ✦" />
       <DuoBar chips={HOME_CHIPS} />
 
-      <div className="flex-1 overflow-y-auto p-5">
-        <p className="text-[10px] text-[#9CA3AF] mb-4">Duo processed 47 signals while you were away</p>
+      <div className="flex flex-1 overflow-hidden min-h-0 gap-4 p-4">
 
-        {/* 5 stat cards */}
-        <div className="flex gap-3 mb-5 overflow-x-auto pb-1 scrollbar-hide" style={{ scrollSnapType: "x mandatory" }}>
-          {STAT_CARDS.map((s, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-              <StatCard {...s} />
-            </motion.div>
-          ))}
+        {/* LEFT column: intro + stat cards + chat */}
+        <div className="flex flex-col flex-1 min-w-0 min-h-0 gap-3">
+          <div>
+            <p className="text-[9px] text-[#9CA3AF] mb-2.5">Duo processed 47 signals while you were away</p>
+            <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide" style={{ scrollSnapType: "x mandatory" }}>
+              {STAT_CARDS.map((s, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+                  <StatCard {...s} />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Chat — takes remaining height */}
+          <div className="flex-1 min-h-0">
+            <DuoChatSection />
+          </div>
         </div>
 
-        {/* Two-column layout */}
-        <div className="grid grid-cols-[1fr_360px] gap-4 min-h-0" style={{ minHeight: 500 }}>
+        {/* RIGHT column: starts at same level as stat cards */}
+        <div className="w-[330px] shrink-0 flex flex-col gap-3 min-h-0 overflow-y-auto scrollbar-hide">
 
-          {/* LEFT: Duo Chat (main, largest container) */}
-          <DuoChatSection />
-
-          {/* RIGHT column */}
-          <div className="flex flex-col gap-3 overflow-y-auto">
-
-            {/* Needs your attention */}
-            <div className="p-4" style={CARD}>
-              <h2 className="font-semibold text-[11px] text-[#374151] mb-3">Needs your attention</h2>
-              <div className="flex flex-col gap-2">
-                {approvals.map((card, i) => (
-                  <div key={i} className="p-3" style={{ borderRadius: 2, border: "0.3px solid rgba(172,200,215,0.5)" }}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="min-w-0 flex-1 mr-2">
-                        <span className="text-[11px] font-semibold text-[#374151]">{card.name}</span>
-                        <span className="text-[10px] text-[#9CA3AF]"> · {card.company}</span>
-                      </div>
-                      <span className="flex items-center gap-1 text-[9px] px-1.5 py-0.5 shrink-0"
-                        style={{ background: "#EDF4FB", color: "#6B7280", borderRadius: 2 }}>
-                        {card.channel === "Email" ? <Mail size={8} /> : <Link2 size={8} />}
-                        {card.channel}
-                      </span>
+          {/* Needs your attention */}
+          <div className="p-4" style={CARD}>
+            <h2 className="font-semibold text-[11px] text-[#374151] mb-3">Needs your attention</h2>
+            <div className="flex flex-col gap-2">
+              {approvals.map((card, i) => (
+                <div key={i} className="p-3" style={{ borderRadius: 8, border: "0.3px solid rgba(172,200,215,0.5)" }}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <div className="min-w-0 flex-1 mr-2">
+                      <span className="text-[11px] font-semibold text-[#374151]">{card.name}</span>
+                      <span className="text-[9px] text-[#9CA3AF]"> · {card.company}</span>
                     </div>
-                    <p className="text-[10px] text-[#6B7280] italic leading-relaxed line-clamp-2 mb-2">
-                      &ldquo;{card.preview}&rdquo;
-                    </p>
-                    <div className="flex gap-1.5">
-                      <button
-                        className="flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
-                        style={{ width: 22, height: 22, background: "#27AE60", borderRadius: 2 }}
-                        title="Approve & send"
-                      >
-                        <MessageCircle size={10} className="text-white" />
-                      </button>
-                      <button
-                        className="flex items-center justify-center cursor-pointer hover:bg-[#F8FAFF] transition-colors"
-                        style={{ width: 22, height: 22, borderRadius: 2, border: "0.3px solid rgba(172,200,215,0.6)" }}
-                        title="Edit"
-                      >
-                        <Pencil size={10} className="text-[#6B7280]" />
-                      </button>
-                    </div>
+                    <span className="flex items-center gap-1 text-[9px] px-1.5 py-0.5 shrink-0"
+                      style={{ background: "#EDF4FB", color: "#6B7280", borderRadius: 4 }}>
+                      {card.channel === "Email" ? <Mail size={8} /> : <Link2 size={8} />}
+                      {card.channel}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Pipeline snapshot */}
-            <div className="p-4" style={CARD}>
-              <h2 className="font-semibold text-[11px] text-[#374151] mb-3">Pipeline snapshot</h2>
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { n: stats.meetingsToday, label: "Today's meetings" },
-                  { n: 23, label: "Sequences active" },
-                  { n: "14.9%", label: "Reply rate (7d)" },
-                ].map((s, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-[18px] font-bold text-[#1F2937]">{s.n}</div>
-                    <div className="text-[9px] text-[#9CA3AF] leading-snug">{s.label}</div>
+                  <p className="text-[9px] text-[#6B7280] italic leading-relaxed line-clamp-2 mb-2">
+                    &ldquo;{card.preview}&rdquo;
+                  </p>
+                  <div className="flex gap-1.5">
+                    <button
+                      className="flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
+                      style={{ width: 22, height: 22, background: "#1E40AF", borderRadius: 6 }}
+                      title="Approve & send"
+                    >
+                      <Send size={9} className="text-white" />
+                    </button>
+                    <button
+                      className="flex items-center justify-center cursor-pointer hover:bg-[#F8FAFF] transition-colors"
+                      style={{ width: 22, height: 22, borderRadius: 6, border: "0.3px solid rgba(172,200,215,0.6)" }}
+                      title="Edit"
+                    >
+                      <Pencil size={9} className="text-[#6B7280]" />
+                    </button>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-
-            {/* Duo's Activity (compact, 5 items) */}
-            <div className="p-4" style={CARD}>
-              <h2 className="font-semibold text-[11px] text-[#374151] mb-3">Duo&rsquo;s Activity</h2>
-              <div className="flex flex-col">
-                {visibleTimeline.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -6 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04 }}
-                    className="flex items-center gap-2"
-                    style={{
-                      background: "rgba(255,255,255,0.9)",
-                      border: "0.3px solid rgba(172,200,215,0.5)",
-                      borderRadius: 2,
-                      padding: "6px 8px",
-                      marginBottom: 4,
-                    }}
-                  >
-                    {/* 4px dot with desaturated colour */}
-                    <div
-                      className="shrink-0 rounded-full"
-                      style={{ width: 4, height: 4, background: DOT_COLOR[item.type] ?? "rgba(156,163,175,0.35)" }}
-                    />
-                    <p className="flex-1 min-w-0 leading-snug" style={{ fontSize: 8, color: "#374151" }}>
-                      {item.text}
-                    </p>
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      <span style={{ fontSize: 8, color: "#9CA3AF", whiteSpace: "nowrap" }}>{item.time}</span>
-                      {item.action && (
-                        <button
-                          className="cursor-pointer transition-all hover:bg-[#1F2937] hover:text-white"
-                          style={{
-                            fontSize: 8,
-                            border: "0.3px solid #374151",
-                            color: "#374151",
-                            borderRadius: 2,
-                            padding: "2px 5px",
-                            background: "transparent",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {item.action}
-                        </button>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-              {!showAll && timeline.length > 5 && (
-                <button
-                  onClick={() => setShowAll(true)}
-                  className="hover:underline cursor-pointer mt-1"
-                  style={{ fontSize: 8, color: "#1E40AF" }}
-                >
-                  See more ({timeline.length - 5} more) →
-                </button>
-              )}
-            </div>
-
           </div>
+
+          {/* Pipeline snapshot */}
+          <div className="p-4" style={CARD}>
+            <h2 className="font-semibold text-[11px] text-[#374151] mb-3">Pipeline snapshot</h2>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { n: stats.meetingsToday, label: "Today's meetings" },
+                { n: 23, label: "Sequences active" },
+                { n: "14.9%", label: "Reply rate (7d)" },
+              ].map((s, i) => (
+                <div key={i} className="text-center">
+                  <div className="text-[16px] font-bold text-[#1F2937]">{s.n}</div>
+                  <div className="text-[8px] text-[#9CA3AF] leading-snug">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Duo's Activity */}
+          <div className="p-4" style={CARD}>
+            <h2 className="font-semibold text-[11px] text-[#374151] mb-3">Duo&rsquo;s Activity</h2>
+            <div className="flex flex-col">
+              {visibleTimeline.map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04 }}
+                  className="flex items-center gap-2"
+                  style={{
+                    background: "rgba(255,255,255,0.9)",
+                    border: "0.3px solid rgba(172,200,215,0.5)",
+                    borderRadius: 6,
+                    padding: "5px 8px",
+                    marginBottom: 3,
+                  }}
+                >
+                  <div className="shrink-0 rounded-full" style={{ width: 4, height: 4, background: DOT_COLOR[item.type] ?? "rgba(156,163,175,0.35)" }} />
+                  <p className="flex-1 min-w-0 leading-snug" style={{ fontSize: 8, color: "#374151" }}>{item.text}</p>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span style={{ fontSize: 8, color: "#9CA3AF", whiteSpace: "nowrap" }}>{item.time}</span>
+                    {item.action && (
+                      <button
+                        className="cursor-pointer transition-all hover:bg-[#1F2937] hover:text-white"
+                        style={{ fontSize: 8, border: "0.3px solid #374151", color: "#374151", borderRadius: 4, padding: "2px 5px", background: "transparent", whiteSpace: "nowrap" }}
+                      >
+                        {item.action}
+                      </button>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            {!showAll && timeline.length > 5 && (
+              <button onClick={() => setShowAll(true)} className="hover:underline cursor-pointer mt-1" style={{ fontSize: 8, color: "#1E40AF" }}>
+                See more ({timeline.length - 5} more) →
+              </button>
+            )}
+          </div>
+
         </div>
       </div>
     </div>

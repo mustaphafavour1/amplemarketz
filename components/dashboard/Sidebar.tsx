@@ -119,7 +119,7 @@ function NavRowExpanded({
       />
       <span
         className={[
-          "text-[13px] font-medium flex-1 leading-none",
+          "text-[11px] font-medium flex-1 leading-none",
           active && !item.locked ? "text-[#1E40AF]" : "text-[var(--c-text-2)]",
         ].join(" ")}
       >
@@ -217,7 +217,7 @@ function NavRowCollapsed({
 function SectionLabel({ label }: { label: string }) {
   return (
     <div
-      className="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#9CA3AF] select-none"
+      className="px-3 pt-4 pb-1 text-[8px] font-semibold uppercase tracking-[0.08em] text-[#9CA3AF] select-none"
     >
       {label}
     </div>

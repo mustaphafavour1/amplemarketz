@@ -35,7 +35,7 @@ export function DuoBar({ chips }: DuoBarProps) {
           <Sparkles size={14} style={{ color: "#1E40AF" }} />
         </motion.div>
         <span
-          className="text-[12px] italic whitespace-nowrap"
+          className="text-[9px] italic whitespace-nowrap"
           style={{ color: "var(--c-text-3)" }}
         >
           Duo suggests:
@@ -89,7 +89,7 @@ export function DuoBar({ chips }: DuoBarProps) {
             ) : (
               <button
                 onClick={() => (chip.expandable ? setExpanded(i) : undefined)}
-                className="flex items-center gap-1.5 h-7 px-3 rounded-[100px] text-[12px] transition-all cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-1.5 h-7 px-3 rounded-[100px] text-[9px] transition-all cursor-pointer whitespace-nowrap"
                 style={{
                   background: "white",
                   border: "1px solid #E5E7EB",
@@ -119,7 +119,7 @@ export function DuoBar({ chips }: DuoBarProps) {
       {/* Right: Ask Duo anything */}
       <button
         onClick={() => setDuoOpen(true)}
-        className="shrink-0 text-[12px] font-semibold cursor-pointer hover:underline whitespace-nowrap transition-colors"
+        className="shrink-0 text-[9px] font-semibold cursor-pointer hover:underline whitespace-nowrap transition-colors"
         style={{ color: "#1E40AF" }}
       >
         Ask Duo anything →

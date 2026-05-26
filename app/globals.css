@@ -196,6 +196,34 @@ body {
 .blob-2 { width: 500px; height: 500px; background: radial-gradient(circle, #C3EAD8 0%, #A5C8F0 100%); top: 40%; right: -120px; animation: blob2 28s ease-in-out infinite; }
 .blob-3 { width: 400px; height: 400px; background: radial-gradient(circle, #B0D8F0 0%, #C8EAD8 100%); bottom: 5%; left: 30%; animation: blob3 18s ease-in-out infinite; }
 
+/* ─── Chat input animated border dot ─── */
+@keyframes chat-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.chat-glow-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: 9px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 255deg,
+    rgba(147,197,253,0.85) 295deg,
+    rgba(96,165,250,1) 325deg,
+    transparent 360deg
+  );
+  animation: chat-spin 3.5s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.chat-glow-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 /* ─── Dark noise background ─── */
 .noise-bg {
   position: relative;
