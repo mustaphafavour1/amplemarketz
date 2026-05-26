@@ -7,7 +7,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   const { duoOpen, setDuoOpen, sidebarExpanded } = useDashboard();
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: "var(--c-bg)" }}>
+    <div className="flex h-screen overflow-hidden dashboard-bg">
       <Sidebar />
       <div
         className="flex-1 flex flex-col overflow-hidden min-w-0 transition-all duration-250"

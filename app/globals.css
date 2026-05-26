@@ -11,8 +11,8 @@
   --c-duo-bar:     #F0F6FF;
   --c-border:      #EEF0F5;
   --c-border-md:   #D4E4EE;
-  --c-text-1:      #111827;
-  --c-text-2:      #4B5563;
+  --c-text-1:      #374151;
+  --c-text-2:      #6B7280;
   --c-text-3:      #9CA3AF;
   --c-navy:        #0F1923;
   --c-accent:      #E85D26;
@@ -46,9 +46,10 @@ html.dark {
 }
 
 @theme inline {
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-sans:  'Inter', system-ui, sans-serif;
-  --font-mono:  'JetBrains Mono', monospace;
+  --font-display: var(--font-bricolage, 'Bricolage Grotesque', system-ui);
+  --font-serif:   'Instrument Serif', Georgia, serif;
+  --font-sans:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
 }
 
 /* ─── Base ─── */
@@ -58,6 +59,7 @@ body {
   background: var(--c-bg);
   color: var(--c-text-1);
   font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -68,6 +70,44 @@ body {
 ::-webkit-scrollbar-thumb  { background: var(--c-border-md); border-radius: 100px; }
 .scrollbar-hide            { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ─── Glass card ─── */
+.glass-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 0.5px solid rgba(147,197,253,0.35);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.glass-card:hover {
+  background: rgba(255,255,255,1.0);
+  box-shadow: 0 2px 16px rgba(67,97,238,0.06);
+}
+
+/* ─── Gradient border card ─── */
+.grad-border {
+  position: relative;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.grad-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(147,197,253,0.45), rgba(196,181,253,0.2), rgba(147,197,253,0.35));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─── Dashboard background ─── */
+.dashboard-bg {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFF 35%, #F5F7FF 65%, #F8FAFF 100%);
+}
 
 /* ─── Ticker (logo bar) ─── */
 @keyframes ticker {
@@ -80,6 +120,17 @@ body {
   width: max-content;
 }
 .ticker-track:hover { animation-play-state: paused; }
+
+/* ─── Data ticker (testimonial section) ─── */
+@keyframes dataTicker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.data-ticker {
+  display: flex;
+  animation: dataTicker 20s linear infinite;
+  width: max-content;
+}
 
 /* ─── Animated gradient (hero) ─── */
 @keyframes gradientDrift {
