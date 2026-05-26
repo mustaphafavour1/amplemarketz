@@ -3,7 +3,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { DuoBar } from "@/components/ui/DuoBar";
-import { DuoPanel } from "@/components/ui/DuoPanel";
 import { SignalDot } from "@/components/ui/SignalPill";
 import { Avatar } from "@/components/ui/Avatar";
 import stats from "@/data/stats.json";
@@ -47,12 +46,11 @@ function StatCard({ value, label, delta, positive }: { value: number | string; l
 }
 
 export default function DashboardHome() {
-  const [duoOpen, setDuoOpen] = useState(false);
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <Topbar title="Good morning, Favour ✦" onAskDuo={() => setDuoOpen(true)} />
-      <DuoBar chips={HOME_CHIPS} onAskDuo={() => setDuoOpen(true)} />
+      <Topbar title="Good morning, Favour ✦" />
+      <DuoBar chips={HOME_CHIPS} />
 
       <div className="flex-1 overflow-y-auto p-5">
         <p className="text-[13px] text-[#9A9A9A] mb-5">Duo processed 47 signals while you were away</p>
@@ -156,7 +154,6 @@ export default function DashboardHome() {
         </div>
       </div>
 
-      <DuoPanel open={duoOpen} onClose={() => setDuoOpen(false)} />
     </div>
   );
 }

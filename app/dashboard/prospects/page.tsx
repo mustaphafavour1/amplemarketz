@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { DuoBar } from "@/components/ui/DuoBar";
-import { DuoPanel } from "@/components/ui/DuoPanel";
 import { SignalPill } from "@/components/ui/SignalPill";
 import { Avatar } from "@/components/ui/Avatar";
 import leads from "@/data/leads.json";
@@ -18,12 +17,11 @@ const PROSPECT_CHIPS = [
 ];
 
 export default function ProspectsPage() {
-  const [duoOpen, setDuoOpen] = useState(false);
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <Topbar title="Prospects" onAskDuo={() => setDuoOpen(true)} />
-      <DuoBar chips={PROSPECT_CHIPS} onAskDuo={() => setDuoOpen(true)} />
+      <Topbar title="Prospects" />
+      <DuoBar chips={PROSPECT_CHIPS} />
 
       <div className="flex-1 overflow-y-auto p-5">
         <div className="flex items-center justify-between mb-4">
@@ -93,7 +91,6 @@ export default function ProspectsPage() {
         </div>
       </div>
 
-      <DuoPanel open={duoOpen} onClose={() => setDuoOpen(false)} />
     </div>
   );
 }

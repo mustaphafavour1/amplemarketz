@@ -3,7 +3,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { DuoBar } from "@/components/ui/DuoBar";
-import { DuoPanel } from "@/components/ui/DuoPanel";
 import { SignalDot } from "@/components/ui/SignalPill";
 import { Avatar } from "@/components/ui/Avatar";
 import prospect from "@/data/prospect.json";
@@ -20,12 +19,11 @@ const TABS = ["Overview", "Signals", "Sequences", "Activity"];
 
 export default function ProspectProfilePage() {
   const [activeTab, setActiveTab] = useState("Overview");
-  const [duoOpen, setDuoOpen] = useState(false);
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <Topbar title={prospect.name} breadcrumb="Prospects" onAskDuo={() => setDuoOpen(true)} />
-      <DuoBar chips={PROSPECT_CHIPS} onAskDuo={() => setDuoOpen(true)} />
+      <Topbar title={prospect.name} breadcrumb="Prospects" />
+      <DuoBar chips={PROSPECT_CHIPS} />
 
       <div className="flex flex-1 overflow-hidden min-h-0">
         {/* Left sticky column */}
@@ -171,7 +169,6 @@ export default function ProspectProfilePage() {
         </div>
       </div>
 
-      <DuoPanel open={duoOpen} onClose={() => setDuoOpen(false)} />
     </div>
   );
 }

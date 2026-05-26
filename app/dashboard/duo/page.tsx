@@ -3,7 +3,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { DuoBar } from "@/components/ui/DuoBar";
-import { DuoPanel } from "@/components/ui/DuoPanel";
 import { SignalPill } from "@/components/ui/SignalPill";
 import { Avatar } from "@/components/ui/Avatar";
 import leads from "@/data/leads.json";
@@ -51,7 +50,6 @@ export default function DuoCopilotPage() {
   const [selectedId, setSelectedId] = useState(leads[0].id);
   const [activeTab, setActiveTab] = useState<"pending" | "autopilot">("pending");
   const [activeStep, setActiveStep] = useState(0);
-  const [duoOpen, setDuoOpen] = useState(false);
   const [emailBody, setEmailBody] = useState(EMAIL_DRAFT.body);
   const [subject, setSubject] = useState(EMAIL_DRAFT.subject);
 
@@ -59,8 +57,8 @@ export default function DuoCopilotPage() {
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <Topbar title="Duo Copilot" onAskDuo={() => setDuoOpen(true)} />
-      <DuoBar chips={DUO_CHIPS} onAskDuo={() => setDuoOpen(true)} />
+      <Topbar title="Duo Copilot" />
+      <DuoBar chips={DUO_CHIPS} />
 
       {/* Three-zone layout */}
       <div className="flex flex-1 overflow-hidden min-h-0">
@@ -312,7 +310,6 @@ export default function DuoCopilotPage() {
         </div>
       </div>
 
-      <DuoPanel open={duoOpen} onClose={() => setDuoOpen(false)} />
     </div>
   );
 }

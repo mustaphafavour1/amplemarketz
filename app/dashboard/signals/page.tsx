@@ -3,7 +3,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { DuoBar } from "@/components/ui/DuoBar";
-import { DuoPanel } from "@/components/ui/DuoPanel";
 import { SignalPill, signalBorder } from "@/components/ui/SignalPill";
 import { Avatar } from "@/components/ui/Avatar";
 import signals from "@/data/signals.json";
@@ -40,15 +39,14 @@ const BORDER_CLASSES: Record<string, string> = {
 
 export default function SignalsPage() {
   const [activeTab, setActiveTab] = useState("all");
-  const [duoOpen, setDuoOpen] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const filtered = activeTab === "all" ? signals : signals.filter(s => s.type === activeTab);
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <Topbar title="Signals" breadcrumb="Dashboard" onAskDuo={() => setDuoOpen(true)} />
-      <DuoBar chips={SIGNAL_CHIPS} onAskDuo={() => setDuoOpen(true)} />
+      <Topbar title="Signals" breadcrumb="Dashboard" />
+      <DuoBar chips={SIGNAL_CHIPS} />
 
       <div className="flex-1 overflow-y-auto">
         {/* Page header */}
@@ -133,7 +131,6 @@ export default function SignalsPage() {
         </div>
       </div>
 
-      <DuoPanel open={duoOpen} onClose={() => setDuoOpen(false)} />
     </div>
   );
 }

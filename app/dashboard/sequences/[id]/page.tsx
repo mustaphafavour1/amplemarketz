@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { DuoBar } from "@/components/ui/DuoBar";
-import { DuoPanel } from "@/components/ui/DuoPanel";
 import sequences from "@/data/sequences.json";
 import { Mail, Link2, Phone, RefreshCw, Check, Sparkles, ArrowLeft, Plus, ChevronRight } from "lucide-react";
 
@@ -28,7 +27,6 @@ export default function SequenceBuilderPage() {
   const params = useParams();
   const seq = sequences.find(s => s.id === params.id) ?? sequences[0];
   const [activeStep, setActiveStep] = useState(0);
-  const [duoOpen, setDuoOpen] = useState(false);
   const [body, setBody] = useState(seq.steps[0]?.body ?? "");
   const [subject, setSubject] = useState(seq.steps[0]?.subject ?? "");
   const [seqName, setSeqName] = useState(seq.name);
@@ -38,8 +36,8 @@ export default function SequenceBuilderPage() {
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <Topbar title="Sequence Builder" breadcrumb="Sequences" onAskDuo={() => setDuoOpen(true)} />
-      <DuoBar chips={SEQ_CHIPS} onAskDuo={() => setDuoOpen(true)} />
+      <Topbar title="Sequence Builder" breadcrumb="Sequences" />
+      <DuoBar chips={SEQ_CHIPS} />
 
       <div className="flex-1 overflow-y-auto pb-20">
         {/* Sequence header */}
@@ -207,7 +205,6 @@ export default function SequenceBuilderPage() {
         </div>
       </div>
 
-      <DuoPanel open={duoOpen} onClose={() => setDuoOpen(false)} />
     </div>
   );
 }
