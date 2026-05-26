@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { DuoBar } from "@/components/ui/DuoBar";
 import { SignalPill, signalBorder } from "@/components/ui/SignalPill";
@@ -35,6 +35,14 @@ const BORDER_CLASSES: Record<string, string> = {
   fund: "border-l-[#27AE60]",
   comp: "border-l-[#E85D26]",
   news: "border-l-[#F39C12]",
+};
+
+const AI_SUMMARIES: Record<string, { nextStep: string; notes: string }> = {
+  job: { nextStep: "Reach out within 48h — job changes signal budget authority shift.", notes: "New role likely means new vendor evaluations. Personalise with congrats on the promotion." },
+  social: { nextStep: "Engage with their recent post before sending a cold email.", notes: "They shared content on GTM strategy — align your pitch to their current priorities." },
+  fund: { nextStep: "Strike now — funding closes trigger immediate tool purchases.", notes: "Series B companies typically expand their sales stack within 30 days of announcement." },
+  comp: { nextStep: "Send a differentiation email within 24h.", notes: "They visited a competitor pricing page twice this week. High intent to switch or evaluate alternatives." },
+  news: { nextStep: "Reference the news piece in your opener.", notes: "Company press coverage boosts their visibility — they may be hiring and expanding GTM." },
 };
 
 export default function SignalsPage() {
@@ -86,48 +94,87 @@ export default function SignalsPage() {
 
         {/* Signal list */}
         <div className="divide-y divide-[#D4E4EE]">
-          {filtered.map((signal, i) => (
-            <motion.div
-              key={signal.id}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-              onMouseEnter={() => setHoveredId(signal.id)}
-              onMouseLeave={() => setHoveredId(null)}
-              className={`flex items-center gap-4 px-5 py-4 bg-white border-l-[3px] transition-colors hover:bg-[#F0F6FF] ${BORDER_CLASSES[signal.type] ?? "border-l-[#D4E4EE]"}`}
-            >
-              {/* Zone 1: Icon */}
-              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#F8FAFF] text-[18px] shrink-0">
-                {SIGNAL_ICONS[signal.type] ?? "📌"}
-              </div>
+          {filtered.map((signal, i) => {
+            const isHovered = hoveredId === signal.id;
+            const summary = AI_SUMMARIES[signal.type] ?? AI_SUMMARIES.news;
+            return (
+              <motion.div
+                key={signal.id}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
+                onMouseEnter={() => setHoveredId(signal.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                className={`bg-white border-l-[3px] transition-all ${BORDER_CLASSES[signal.type] ?? "border-l-[#D4E4EE]"}`}
+                style={isHovered ? { boxShadow: "inset 0 0 0 2px rgba(67,97,238,0.12)" } : {}}
+              >
+                {/* Main row */}
+                <div className="flex items-center gap-4 px-5 py-4">
+                  {/* Zone 1: Icon */}
+                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#F8FAFF] text-[18px] shrink-0">
+                    {SIGNAL_ICONS[signal.type] ?? "📌"}
+                  </div>
 
-              {/* Zone 2: Who + what */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-0.5">
-                  <Avatar initials={signal.avatar} size={24} />
-                  <span className="text-[14px] font-semibold text-[#374151]">{signal.person}</span>
-                  <span className="text-[13px] text-[#9CA3AF]">· {signal.company}</span>
+                  {/* Zone 2: Who + what */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <Avatar initials={signal.avatar} size={24} />
+                      <span className="text-[14px] font-semibold text-[#374151]">{signal.person}</span>
+                      <span className="text-[13px] text-[#9CA3AF]">· {signal.company}</span>
+                    </div>
+                    <p className="text-[13px] text-[#6B7280]">{signal.signal}</p>
+                  </div>
+
+                  {/* Zone 3: Pill + source */}
+                  <div className="w-[160px] shrink-0">
+                    <div className="mb-1"><SignalPill type={signal.type} /></div>
+                    <div className="text-[11px] text-[#9CA3AF]">via {signal.source} · {signal.time}</div>
+                  </div>
+
+                  {/* Zone 4: Actions (hover reveal) */}
+                  <div className={`flex items-center gap-2 w-[180px] shrink-0 transition-opacity ${isHovered ? "opacity-100" : "opacity-0"}`}>
+                    <button className="flex items-center gap-1 h-7 px-3 rounded-lg border border-[#D4E4EE] text-[11px] font-medium text-[#6B7280] hover:border-[#4361EE] hover:text-[#4361EE] transition-colors cursor-pointer">
+                      <Sparkles size={10} /> Research
+                    </button>
+                    <button className="flex items-center gap-1 h-7 px-3 rounded-lg border border-[#D4E4EE] text-[11px] font-medium text-[#6B7280] hover:border-[#27AE60] hover:text-[#27AE60] transition-colors cursor-pointer">
+                      <Plus size={10} /> Sequence
+                    </button>
+                  </div>
                 </div>
-                <p className="text-[13px] text-[#6B7280]">{signal.signal}</p>
-              </div>
 
-              {/* Zone 3: Pill + source */}
-              <div className="w-[160px] shrink-0">
-                <div className="mb-1"><SignalPill type={signal.type} /></div>
-                <div className="text-[11px] text-[#9CA3AF]">via {signal.source} · {signal.time}</div>
-              </div>
-
-              {/* Zone 4: Actions (hover reveal) */}
-              <div className={`flex items-center gap-2 w-[180px] shrink-0 transition-opacity ${hoveredId === signal.id ? "opacity-100" : "opacity-0"}`}>
-                <button className="flex items-center gap-1 h-7 px-3 rounded-lg border border-[#D4E4EE] text-[11px] font-medium text-[#6B7280] hover:border-[#4361EE] hover:text-[#4361EE] transition-colors cursor-pointer">
-                  <Sparkles size={10} /> Research
-                </button>
-                <button className="flex items-center gap-1 h-7 px-3 rounded-lg border border-[#D4E4EE] text-[11px] font-medium text-[#6B7280] hover:border-[#27AE60] hover:text-[#27AE60] transition-colors cursor-pointer">
-                  <Plus size={10} /> Sequence
-                </button>
-              </div>
-            </motion.div>
-          ))}
+                {/* AI Summary panel — slides in on hover */}
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.18 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mx-5 mb-3 px-4 py-3 rounded-xl flex gap-6"
+                        style={{ background: "rgba(239,244,255,0.7)", border: "0.5px solid rgba(147,197,253,0.4)" }}>
+                        <div className="flex items-center gap-1.5 shrink-0 self-start pt-0.5">
+                          <Sparkles size={11} className="text-[#1E40AF]" />
+                          <span className="text-[9px] font-semibold text-[#1E40AF] uppercase tracking-wide">Duo suggests</span>
+                        </div>
+                        <div className="flex gap-6 flex-1">
+                          <div className="min-w-0">
+                            <div className="text-[9px] font-semibold text-[#374151] uppercase tracking-wide mb-1">Next step</div>
+                            <p className="text-[11px] text-[#4B5563] leading-relaxed">{summary.nextStep}</p>
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-[9px] font-semibold text-[#374151] uppercase tracking-wide mb-1">Intelligence note</div>
+                            <p className="text-[11px] text-[#4B5563] leading-relaxed">{summary.notes}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 

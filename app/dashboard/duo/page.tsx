@@ -118,7 +118,9 @@ export default function DuoCopilotPage() {
                       <div className="text-[7px] text-[#9CA3AF] truncate">{lead.company} · {lead.title.split(" ").slice(0, 3).join(" ")}</div>
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
-                      <SignalPill type={lead.signalType} label={lead.signal.length > 16 ? lead.signal.slice(0, 16) + "…" : lead.signal} />
+                      <span title={lead.signal}>
+                        <SignalPill type={lead.signalType} label={lead.signal.length > 13 ? lead.signal.slice(0, 13) + "…" : lead.signal} small />
+                      </span>
                       {selectedId === lead.id && (
                         <div className="w-1.5 h-1.5 rounded-full bg-[#1E40AF]" />
                       )}
@@ -151,15 +153,21 @@ export default function DuoCopilotPage() {
                       border: selectedId === lead.id ? "1.5px solid #1E40AF" : "1.5px solid transparent",
                     }}
                   >
-                    <div
-                      className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0"
+                    <img
+                      src={`https://i.pravatar.cc/32?u=${lead.id}`}
+                      alt=""
+                      style={{ width: 16, height: 16, borderRadius: "50%", flexShrink: 0, objectFit: "cover" }}
+                    />
+                    <span
                       style={{
-                        background: selectedId === lead.id ? "#1E40AF" : "#D4E4EE",
-                        color: selectedId === lead.id ? "white" : "#6B7280",
+                        fontSize: 8,
+                        fontWeight: 600,
+                        color: selectedId === lead.id ? "#1E40AF" : "#6B7280",
+                        lineHeight: 1,
                       }}
                     >
                       {lead.avatar}
-                    </div>
+                    </span>
                   </div>
                 </button>
               ))}

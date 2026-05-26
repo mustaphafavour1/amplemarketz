@@ -27,11 +27,11 @@ const VOLUME_DATA = [
 ];
 
 const RADIAL_DATA = [
-  { name: "News", value: 31, fill: "#F39C12" },
-  { name: "Social", value: 45, fill: "#9B59B6" },
-  { name: "Funding", value: 62, fill: "#27AE60" },
-  { name: "Job Change", value: 78, fill: "#4361EE" },
-  { name: "Competitor", value: 83, fill: "#E85D26" },
+  { name: "News", value: 31, fill: "#FDE68A" },
+  { name: "Social", value: 45, fill: "#DDD6FE" },
+  { name: "Funding", value: 62, fill: "#A7F3D0" },
+  { name: "Job Change", value: 78, fill: "#BFDBFE" },
+  { name: "Competitor", value: 83, fill: "#FECACA" },
 ];
 
 const TOP_SIGNALS = [
@@ -59,6 +59,7 @@ const STAT_CARDS = [
   { value: "34.2%", label: "Open rate", delta: "+2.1%", pos: true },
   { value: "14.9%", label: "Reply rate", delta: "+0.8%", pos: true },
   { value: "28", label: "Meetings booked", delta: "+5", pos: true },
+  { value: "4.2h", label: "Avg. reply time", delta: "-0.8h", pos: true },
 ];
 
 const avgRate = Math.round(RADIAL_DATA.reduce((s, d) => s + d.value, 0) / RADIAL_DATA.length);
@@ -97,7 +98,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-5 gap-4 mb-6">
           {STAT_CARDS.map((s, i) => (
             <motion.div
               key={i}

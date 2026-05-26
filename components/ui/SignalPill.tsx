@@ -8,11 +8,11 @@ const typeConfig: Record<string, { bg: string; text: string; dot: string; label:
   news:   { bg: "bg-amber-50",  text: "text-[#F39C12]", dot: "bg-[#F39C12]",  label: "News" },
 };
 
-export function SignalPill({ type, label }: { type: string; label?: string }) {
+export function SignalPill({ type, label, small }: { type: string; label?: string; small?: boolean }) {
   const cfg = typeConfig[type] ?? typeConfig.news;
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium ${cfg.bg} ${cfg.text}`}>
-      <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
+    <span className={`inline-flex items-center gap-1 rounded-full font-medium ${cfg.bg} ${cfg.text} ${small ? "px-1.5 py-0.5 text-[8px]" : "px-2.5 py-0.5 text-[11px] gap-1.5"}`}>
+      <span className={`rounded-full shrink-0 ${cfg.dot} ${small ? "w-1 h-1" : "w-1.5 h-1.5"}`} />
       {label ?? cfg.label}
     </span>
   );

@@ -64,7 +64,7 @@ function StatCard({ value, label, delta, positive, deltaLabel }: {
   value: number | string; label: string; delta: number; positive: boolean; deltaLabel: string;
 }) {
   return (
-    <div className="shrink-0 p-4" style={{ ...CARD, minWidth: 160, scrollSnapAlign: "start" }}>
+    <div className="w-full p-4" style={CARD}>
       <div className="text-[22px] font-bold text-[#1F2937] leading-none mb-1">{value}</div>
       <div className="text-[9px] text-[#9CA3AF] mb-1.5">{label}</div>
       <div className={`flex items-center gap-1 text-[9px] font-medium ${positive ? "text-[#15803D]" : "text-[#E85D26]"}`}>
@@ -170,10 +170,7 @@ function DuoChatSection() {
           </div>
         )}
         <div className="flex items-end gap-2">
-          {/* Glowing wrapper */}
-          <div className="flex-1 relative" style={{ borderRadius: 9 }}>
-            <div className="chat-glow-ring" />
-            <div className="chat-glow-inner">
+          <div className="flex-1 relative" style={{ borderRadius: 9, border: "1px solid rgba(147,197,253,0.45)", overflow: "hidden" }}>
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -193,7 +190,6 @@ function DuoChatSection() {
                   display: "block",
                 }}
               />
-            </div>
           </div>
           <button
             onClick={send}
@@ -226,9 +222,9 @@ export default function DashboardHome() {
         <div className="flex flex-col flex-1 min-w-0 min-h-0 gap-3">
           <div>
             <p className="text-[9px] text-[#9CA3AF] mb-2.5">Duo processed 47 signals while you were away</p>
-            <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide" style={{ scrollSnapType: "x mandatory" }}>
+            <div className="flex gap-3">
               {STAT_CARDS.map((s, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+                <motion.div key={i} className="flex-1 min-w-0" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
                   <StatCard {...s} />
                 </motion.div>
               ))}
