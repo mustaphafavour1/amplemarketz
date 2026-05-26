@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowRight, Play, ChevronDown, Star, Check, X,
@@ -194,6 +194,163 @@ function HeroLogoCenter() {
         </motion.div>
       ))}
     </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
+   SECTION 1 HERO — Centered text + scroll-grow video
+───────────────────────────────────────────────────────── */
+function HeroSection({ nameIdx }: { nameIdx: number }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const videoScale = useTransform(scrollYProgress, [0, 0.6], [0.76, 1.0]);
+  const videoY = useTransform(scrollYProgress, [0, 0.6], [0, -20]);
+
+  return (
+    <section ref={sectionRef} className="relative overflow-visible">
+      {/* ── Centered text content ── */}
+      <div className="max-w-[760px] mx-auto px-6 pt-16 pb-12 text-center">
+        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.1 }}>
+          {/* Badges */}
+          <div className="flex flex-wrap justify-center items-center gap-2 mb-8">
+            <span className="inline-flex items-center gap-1.5 h-7 px-3 rounded-full border border-[#D4E4EE] bg-white text-[11px] text-[#4B5563] font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E85D26]" />YC-Backed
+            </span>
+            <span className="inline-flex items-center gap-2 h-7 px-3 rounded-full border border-[#D4E4EE] bg-white text-[11px] text-[#4B5563] font-medium">
+              {[...Array(5)].map((_, i) => <Star key={i} size={10} fill={i < 4 ? "#F39C12" : "none"} stroke="#F39C12" />)}
+              <strong className="text-[#111827]">Gartner</strong> Generative AI Cool Vendor
+            </span>
+          </div>
+
+          {/* H1 */}
+          <h1 className="text-[#0F1923] mb-5 text-center" style={D_H1}>
+            What if your team<br />
+            sold like{" "}
+            <span className="relative inline-block" style={{ minWidth: 320 }}>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={nameIdx}
+                  initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
+                  animate={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
+                  exit={{ clipPath: "inset(100% 0 0 0)", opacity: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-[#E85D26] italic absolute bottom-0 left-0 whitespace-nowrap"
+                  style={{ fontFamily: "var(--font-bricolage)", fontWeight: 800 }}
+                >
+                  {NAMES[nameIdx]}
+                </motion.span>
+              </AnimatePresence>
+              <span className="invisible whitespace-nowrap">{NAMES.reduce((a, b) => a.length >= b.length ? a : b)}</span>
+            </span>
+            <br />every single da<span style={TILT_SPAN}>y</span>?
+          </h1>
+
+          {/* Tagline */}
+          <p className="text-[17px] text-[#4B5563] leading-relaxed max-w-[520px] mx-auto mb-10">
+            Duo learns from the best signals, researches every prospect, and writes outreach that actually gets replies — so your reps can focus on closing.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex justify-center items-center gap-3 mb-10">
+            <Link href="/dashboard">
+              <motion.button whileHover={{ scale: 1.02, y: -1 }} whileTap={{ scale: 0.98 }}
+                className="flex items-center gap-2 h-12 px-6 rounded-lg text-white font-semibold text-[14px] cursor-pointer"
+                style={{ background: "#0F1923", boxShadow: "0 4px 16px rgba(15,25,35,0.25)" }}>
+                Get free trial <ArrowRight size={16} />
+              </motion.button>
+            </Link>
+            <a href="https://www.amplemarket.com?wvideo=c5bz8hgwty" target="_blank" rel="noopener noreferrer">
+              <button className="flex items-center gap-2.5 h-12 px-5 rounded-lg border border-[#D4E4EE] bg-white text-[#111827] font-medium text-[14px] hover:border-[#111827] transition-colors cursor-pointer"
+                style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.05)" }}>
+                <div className="w-6 h-6 rounded-full bg-[#0F1923] flex items-center justify-center">
+                  <Play size={8} fill="white" className="ml-0.5" />
+                </div>
+                See Duo in action
+              </button>
+            </a>
+          </div>
+
+          {/* Trust logos */}
+          <p className="text-[12px] text-[#9CA3AF] mb-3">Trusted by teams that migrated from Apollo, Outreach, ZoomInfo and more.</p>
+          <div className="flex flex-wrap justify-center items-center gap-5">
+            {["Notion", "Stripe", "Linear", "Figma", "Rippling", "Vercel"].map(l => (
+              <span key={l} className="text-[13px] font-semibold text-[#C8C5BE]">{l}</span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* ── Scroll-growing video preview ── */}
+      <div className="relative max-w-[1100px] mx-auto px-8 pb-28">
+        <motion.div
+          style={{ scale: videoScale, y: videoY }}
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.45 }}
+          className="relative"
+        >
+          {/* HeroLogoCenter floating card — top-left, shrunk */}
+          <div
+            className="absolute z-20 pointer-events-none"
+            style={{
+              top: -72,
+              left: -40,
+              width: 500,
+              height: 480,
+              transformOrigin: "top left",
+              transform: "scale(0.35)",
+            }}
+          >
+            <HeroLogoCenter />
+          </div>
+
+          {/* Rocket */}
+          <img
+            src="/images/rocket.svg"
+            alt=""
+            aria-hidden
+            className="rocket-img absolute z-30 pointer-events-none"
+            style={{ width: 90, top: -48, right: 32 }}
+            onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+          />
+
+          {/* Wistia video thumbnail */}
+          <a
+            href="https://www.amplemarket.com?wvideo=c5bz8hgwty"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block relative rounded-2xl overflow-hidden group"
+            style={{
+              boxShadow: "0 32px 80px rgba(0,0,0,0.16), 0 8px 24px rgba(0,0,0,0.08)",
+              border: "1px solid rgba(255,255,255,0.7)",
+            }}
+          >
+            <img
+              src="https://embed-ssl.wistia.com/deliveries/6230db6bdd2e6c605e2d3b0068bdc4a1.jpg?image_crop_resized=1280x720"
+              alt="Amplemarket: AI Sales Copilot for sales teams"
+              className="w-full block"
+              style={{ aspectRatio: "16/9", objectFit: "cover" }}
+            />
+            {/* Play overlay */}
+            <div className="absolute inset-0 flex items-center justify-center"
+              style={{ background: "rgba(0,0,0,0.18)", transition: "background 0.2s" }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                className="flex items-center justify-center"
+                style={{
+                  width: 72, height: 72, borderRadius: "50%",
+                  background: "rgba(255,255,255,0.95)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+                }}
+              >
+                <Play size={26} fill="#0F1923" style={{ marginLeft: 4 }} />
+              </motion.div>
+            </div>
+          </a>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -536,76 +693,7 @@ export default function LandingPage() {
       </div>
 
       {/* ── SECTION 1: HERO ── */}
-      <section className="max-w-[1180px] mx-auto px-6 pt-14 pb-20 grid grid-cols-1 lg:grid-cols-[55%_45%] gap-10 items-center" style={{ minHeight: "calc(100vh - 72px)" }}>
-        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.1 }}>
-          <div className="flex flex-wrap items-center gap-2 mb-8">
-            <span className="inline-flex items-center gap-1.5 h-7 px-3 rounded-full border border-[#D4E4EE] bg-white text-[11px] text-[#4B5563] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E85D26]" />YC-Backed
-            </span>
-            <span className="inline-flex items-center gap-2 h-7 px-3 rounded-full border border-[#D4E4EE] bg-white text-[11px] text-[#4B5563] font-medium">
-              {[...Array(5)].map((_, i) => <Star key={i} size={10} fill={i < 4 ? "#F39C12" : "none"} stroke="#F39C12" />)}
-              <strong className="text-[#111827]">Gartner</strong> Generative AI Cool Vendor
-            </span>
-          </div>
-
-          <h1 className="text-[#0F1923] mb-5" style={D_H1}>
-            What if your team<br />
-            sold like{" "}
-            <span className="relative inline-block" style={{ minWidth: 300 }}>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={nameIdx}
-                  initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-                  animate={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
-                  exit={{ clipPath: "inset(100% 0 0 0)", opacity: 0 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="text-[#E85D26] italic absolute bottom-0 left-0 whitespace-nowrap"
-                  style={{ fontFamily: "var(--font-bricolage)", fontWeight: 800 }}
-                >
-                  {NAMES[nameIdx]}
-                </motion.span>
-              </AnimatePresence>
-              <span className="invisible whitespace-nowrap">{NAMES.reduce((a, b) => a.length >= b.length ? a : b)}</span>
-            </span>
-            <br />every single da<span style={TILT_SPAN}>y</span>?
-          </h1>
-
-          <p className="text-[17px] text-[#4B5563] leading-relaxed max-w-[480px] mb-10">
-            Duo learns from the best signals, researches every prospect, and writes outreach that actually gets replies, so your reps can focus on closing.
-          </p>
-
-          <div className="flex items-center gap-3 mb-10">
-            <Link href="/dashboard">
-              <motion.button whileHover={{ scale: 1.02, y: -1 }} whileTap={{ scale: 0.98 }}
-                className="flex items-center gap-2 h-12 px-6 rounded-lg text-white font-semibold text-[14px] cursor-pointer"
-                style={{ background: "#0F1923", boxShadow: "0 4px 16px rgba(15,25,35,0.25)" }}>
-                Get free trial <ArrowRight size={16} />
-              </motion.button>
-            </Link>
-            <button className="flex items-center gap-2.5 h-12 px-5 rounded-lg border border-[#D4E4EE] bg-white text-[#111827] font-medium text-[14px] hover:border-[#111827] transition-colors cursor-pointer"
-              style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.05)" }}>
-              <div className="w-6 h-6 rounded-full bg-[#0F1923] flex items-center justify-center">
-                <Play size={8} fill="white" className="ml-0.5" />
-              </div>
-              See Duo in action
-            </button>
-          </div>
-
-          <p className="text-[12px] text-[#9CA3AF] mb-3">Trusted by teams that migrated from Apollo, Outreach, ZoomInfo and more.</p>
-          <div className="flex flex-wrap items-center gap-5">
-            {["Notion", "Stripe", "Linear", "Figma", "Rippling", "Vercel"].map(l => (
-              <span key={l} className="text-[13px] font-semibold text-[#C8C5BE]">{l}</span>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative hidden lg:flex justify-center items-center">
-          <img src="/images/rocket.svg" alt="" aria-hidden className="rocket-img absolute -top-14 -right-2 w-[180px] z-30 pointer-events-none"
-            onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-          <HeroLogoCenter />
-        </motion.div>
-      </section>
+      <HeroSection nameIdx={nameIdx} />
 
       {/* ── SECTION 2: TEAMS THAT SWITCHED ── */}
       <motion.section className="max-w-[860px] mx-auto px-6 py-16" {...fadeUp}>
